@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@divarebel.on — Método Reunião Garantida</title>
+  <style>
+    @font-face { font-family:'Satoshi'; src:url('satoshi/Satoshi-Black.otf') format('opentype'); font-weight:900; }
+    @font-face { font-family:'Satoshi'; src:url('satoshi/Satoshi-Bold.otf') format('opentype'); font-weight:700; }
+    @font-face { font-family:'Satoshi'; src:url('satoshi/Satoshi-Medium.otf') format('opentype'); font-weight:500; }
+    @font-face { font-family:'Satoshi'; src:url('satoshi/Satoshi-Regular.otf') format('opentype'); font-weight:400; }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --obsidian: #1a1a1a;
+      --limestone: #dcdad9;
+      --graphite: #494947;
+      --gravel: #7b787a;
+      --accent-glow: rgba(220, 218, 217, 0.06);
+      --nav-height: 80px;
+    }
+
+    html { scroll-behavior:smooth; scroll-padding-top: var(--nav-height); }
+    body { font-family:'Satoshi', sans-serif; background: var(--obsidian); color: var(--limestone); overflow-x: hidden; }
+
+    #particles-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+
+    section { position:relative; z-index:1; }
+    .container { max-width:1100px; margin:0 auto; padding:120px 40px; }
+
+    /* ── NAVEGAÇÃO ── */
+    nav {
+      position: fixed; top: 0; width: 100%; height: var(--nav-height);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      background: rgba(26, 26, 26, 0.8);
+      border-bottom: 1px solid rgba(220, 218, 217, 0.08);
+      z-index: 100; display: flex; align-items: center; justify-content: center;
+    }
+    .nav-container {
+      width: 100%; max-width: 1100px; padding: 0 40px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .nav-logo { font-weight: 900; letter-spacing: -0.02em; font-size: 18px; text-decoration: none; color: var(--limestone); }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      text-decoration: none; color: var(--gravel); font-size: 13px; font-weight: 500;
+      transition: color 0.3s; letter-spacing: 0.05em;
+    }
+    .nav-links a:hover { color: var(--limestone); }
+    .nav-btn {
+      background: var(--limestone); color: var(--obsidian);
+      padding: 10px 20px; border-radius: 8px; font-weight: 700; font-size: 12px;
+    }
+
+    /* ── TYPOGRAPHY ── */
+    .label {
+      display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gravel); border: 1px solid rgba(220,218,217,0.12);
+      padding: 6px 16px; border-radius: 100px; margin-bottom: 32px;
+    }
+    .h1 { font-size: clamp(34px, 5.5vw, 68px); font-weight: 900; line-height: 1.0; letter-spacing: -0.05em; margin-bottom: 28px; }
+    .h2 { font-size: clamp(28px, 4vw, 52px); font-weight: 900; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 24px; }
+    .lead { font-size: clamp(17px, 2vw, 21px); font-weight: 400; line-height: 1.6; color: var(--gravel); max-width: 720px; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items:center; gap:12px; font-size: 14px; font-weight: 700;
+      padding: 20px 42px; border-radius: 12px; text-decoration: none; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+    .btn-light { background: var(--limestone); color: var(--obsidian); }
+    .btn-light:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(220,218,217,0.2); }
+
+    /* ── HERO IMPACTANTE ── */
+    .hero { 
+      min-height: 100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; 
+      text-align:center; position: relative; overflow: hidden; padding-top: var(--nav-height);
+    }
+    .hero::before {
+      content: ''; position: absolute; top: 50%; left: 50%; width: 50vw; height: 50vw;
+      background: radial-gradient(circle, rgba(220, 218, 217, 0.08) 0%, transparent 70%);
+      transform: translate(-50%, -50%); z-index: -1; pointer-events: none;
+    }
+    .hero-viz { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: -2; pointer-events: none; opacity: 0.15; }
+    .orbit { fill: none; stroke: var(--limestone); stroke-width: 0.5; stroke-dasharray: 2 10; transform-origin: center; animation: spin 100s linear infinite; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    /* ── BENTO GRID ── */
+    .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; margin-top: 64px; }
+    .bento-card {
+      position: relative; background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+      border: 1px solid rgba(220,218,217,0.08); border-radius: 28px; padding: 48px; overflow: hidden;
+      transition: border-color 0.4s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .bento-card:hover { border-color: rgba(220,218,217,0.25); transform: translateY(-8px) scale(1.02); }
+    .bento-card::after {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at var(--x, 50%) var(--y, 0%), var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none; transition: opacity 0.4s; opacity: 0;
+    }
+    .bento-card:hover::after { opacity: 1; }
+    .card-6 { grid-column: span 6; }
+    .icon-viz { height: 60px; margin-bottom: 28px; color: var(--limestone); opacity: 0.9; }
+
+    /* ── ABOUT ── */
+    .about-wrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center; }
+    .photo-reveal { position: relative; padding: 1.5px; border-radius: 28px; overflow: hidden; }
+    .photo-reveal::before {
+      content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: conic-gradient(transparent, transparent 75%, var(--limestone) 100%);
+      animation: spin 5s linear infinite;
+    }
+    .photo-reveal img { position: relative; z-index: 2; width: 100%; border-radius: 27px; display: block; filter: grayscale(10%); }
+
+    /* ── FINAL CTA ── */
+    .cta-card {
+      position: relative; background: #0c0c0c; border-radius: 36px; padding: 1.5px; overflow: hidden;
+      max-width: 900px; margin: 0 auto;
+    }
+    .cta-card::before {
+      content: ''; position: absolute; top: -100%; left: -100%; width: 300%; height: 300%;
+      background: conic-gradient(transparent 0%, transparent 92%, rgba(220,218,217,0.8) 93%, transparent 94%);
+      animation: spin 7s linear infinite;
+    }
+    .cta-inner {
+      position: relative; z-index: 2; background: #0c0c0c; border-radius: 35px; padding: 100px 40px;
+      text-align: center; background-image: radial-gradient(circle at 50% 0%, rgba(220,218,217,0.06) 0%, transparent 60%);
+    }
+
+    footer { padding: 60px 40px; text-align: center; border-top: 1px solid rgba(220,218,217,0.05); }
+    footer a { color: var(--gravel); text-decoration: underline; text-underline-offset: 4px; font-size: 13px; }
+
+    .reveal { opacity: 0; transform: translateY(40px) scale(0.98); transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
+
+    @media(max-width: 900px) {
+      .card-6 { grid-column: span 12; }
+      .about-wrap { grid-template-columns: 1fr; gap: 48px; }
+      .container { padding: 80px 24px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-container">
+    <a href="#" class="nav-logo">@divarebel.on</a>
+    <div class="nav-links">
+      <a href="#vácuo">O Vácuo</a>
+      <a href="#método">Metodologia</a>
+      <a href="#sobre">Sobre</a>
+      <a href="https://hotmart.com/pt-br/club/26-745-609-aline-siqueira-santos-de-castro-lima/auth/login?realm=club" target="_blank" class="nav-btn">Aula Gratuita</a>
+    </div>
+  </div>
+</nav>
+
+<canvas id="particles-canvas"></canvas>
+
+<section class="hero">
+  <svg class="hero-viz" viewBox="0 0 1000 1000">
+    <circle class="orbit" cx="500" cy="500" r="450" />
+    <circle class="orbit" cx="500" cy="500" r="300" style="animation-duration: 60s; stroke-dasharray: 4 20;" />
+    <circle class="orbit" cx="500" cy="500" r="150" />
+  </svg>
+  <div class="container">
+    <span class="label reveal">Para Social Medias</span>
+    <h1 class="h1 reveal">Domine o WhatsApp Profissional e Lote sua Agenda de Reuniões</h1>
+    <p class="lead reveal" style="margin: 0 auto;">Aprenda o método estratégico para parar de ser ignorada e converter prospecções em reuniões reais com 70% de taxa de resposta.</p>
+    <div style="margin-top: 54px;" class="reveal">
+      <a href="https://hotmart.com/pt-br/club/26-745-609-aline-siqueira-santos-de-castro-lima/auth/login?realm=club" target="_blank" class="btn btn-light">Assistir aula gratuita agora &nbsp;→</a>
+    </div>
+  </div>
+</section>
+
+<section id="vácuo" class="container">
+  <span class="label reveal">O vácuo comercial</span>
+  <h2 class="h2 reveal">Você envia 20 mensagens por dia e ninguém responde?</h2>
+  <div class="bento-grid">
+    <div class="bento-card card-6 reveal">
+      <div class="icon-viz"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
+      <p>Prospectar por DM no Instagram e ficar no vácuo por dias (ou para sempre).</p>
+    </div>
+    <div class="bento-card card-6 reveal">
+      <div class="icon-viz"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></div>
+      <p>A crença limitante de que o LinkedIn é o único caminho para parecer profissional.</p>
+    </div>
+    <div class="bento-card card-6 reveal">
+      <div class="icon-viz"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><path d="M8 12h8M12 8v8"></path></svg></div>
+      <p>Se desgastar em sites de freelancers disputando clientes por centavos.</p>
+    </div>
+    <div class="bento-card card-6 reveal">
+      <div class="icon-viz"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-11.7 8.38 8.38 0 0 1 3.8.9L21 3z"></path></svg></div>
+      <p>O medo de usar o WhatsApp e ser vista como amadora ou invasiva.</p>
+    </div>
+  </div>
+</section>
+
+<section id="método" class="container" style="padding-bottom: 160px;">
+  <span class="label reveal">O Método</span>
+  <h2 class="h2 reveal">Método Reunião Garantida</h2>
+  <div class="bento-grid">
+    <div class="bento-card card-6 reveal"><span style="font-size: 10px; font-weight: 700; color: #7b787a; letter-spacing: 0.15em; margin-bottom: 12px; display: block;">Pilar 01</span><h3 class="h2" style="font-size: 24px; margin-bottom: 12px;">Quebra de Mito</h3><p>WhatsApp só é amador se você não tiver estratégia. Transformamos o app em uma ferramenta de elite.</p></div>
+    <div class="bento-card card-6 reveal"><span style="font-size: 10px; font-weight: 700; color: #7b787a; letter-spacing: 0.15em; margin-bottom: 12px; display: block;">Pilar 02</span><h3 class="h2" style="font-size: 24px; margin-bottom: 12px;">Taxa de Resposta</h3><p>Invertemos o jogo: 70% de respostas positivas através de uma abordagem que gera desejo imediato.</p></div>
+    <div class="bento-card card-6 reveal"><span style="font-size: 10px; font-weight: 700; color: #7b787a; letter-spacing: 0.15em; margin-bottom: 12px; display: block;">Pilar 03</span><h3 class="h2" style="font-size: 24px; margin-bottom: 12px;">Foco em Reunião</h3><p>O objetivo final não é bater papo, é agendar. Criamos o percurso sem atritos para o fechamento.</p></div>
+    <div class="bento-card card-6 reveal"><span style="font-size: 10px; font-weight: 700; color: #7b787a; letter-spacing: 0.15em; margin-bottom: 12px; display: block;">Pilar 04</span><h3 class="h2" style="font-size: 24px; margin-bottom: 12px;">Processo Comercial</h3><p>Você não recebe um "copia e cola". Você domina a estrutura lógica para prospectar qualquer cliente.</p></div>
+  </div>
+</section>
+
+<section id="sobre" class="container" style="background: rgba(255,255,255,0.015); border-radius: 40px;">
+  <div class="about-wrap">
+    <div class="photo-reveal reveal"><img src="IMG_9209.jpg" alt="Aline Lima" /></div>
+    <div class="about-content">
+      <span class="label reveal">Expert</span>
+      <h2 class="h2 reveal">Eu já fui a social media que mandava 50 DMs e recebia apenas vácuo.</h2>
+      <p class="lead reveal">Sou Aline Lima, especialista em vendas com 9 anos de estrada. O Método Reunião Garantida nasceu da necessidade real de ser ouvida em um mercado saturado de amadorismo.</p>
+      <p class="lead reveal" style="margin-top: 24px;">Aqui, eu te ensino a dominar a estrutura comercial para que você nunca mais precise se humilhar por uma resposta.</p>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <div class="cta-card reveal">
+    <div class="cta-inner">
+      <h2 class="h2">Sua próxima reunião está a um WhatsApp de distância</h2>
+      <p class="lead" style="margin: 28px auto 52px; color: var(--pebble);">Saia do amadorismo e aprenda a ser respondida por 70% dos seus prospectos agora. Acesse a aula gratuita na hotmart.</p>
+      <a href="https://hotmart.com/pt-br/club/26-745-609-aline-siqueira-santos-de-castro-lima/auth/login?realm=club" target="_blank" class="btn btn-light">Acessar aula gratuita agora &nbsp;→</a>
+    </div>
+  </div>
+</section>
+
+<footer><p>© 2026 @divarebel.on — <a href="direitos-reuniao.html">Todos os direitos reservados</a></p></footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.bento-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--x', `${e.clientX - rect.left}px`);
+      card.style.setProperty('--y', `${e.clientY - rect.top}px`);
+    });
+  });
+
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let pts = [];
+  function resize(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  function Pt(){
+    this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height;
+    this.vx = (Math.random()-0.5)*0.25; this.vy = (Math.random()-0.5)*0.25;
+    this.r = Math.random()*1.3;
+  }
+  Pt.prototype.draw = function(){ ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI*2); ctx.fillStyle = 'rgba(220,218,217,0.25)'; ctx.fill(); }
+  function loop(){ ctx.clearRect(0,0,canvas.width,canvas.height); pts.forEach(p => { p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>canvas.width) p.vx*=-1; if(p.y<0||p.y>canvas.height) p.vy*=-1; p.draw(); }); requestAnimationFrame(loop); }
+  resize(); for(let i=0; i<90; i++) pts.push(new Pt()); loop();
+  window.addEventListener('resize', resize);
+</script>
+</body>
+</html>
