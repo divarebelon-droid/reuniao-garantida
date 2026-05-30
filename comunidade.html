@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comunidade Gratuita — @divarebel.on</title>
+  <style>
+    @font-face { font-family:'Satoshi'; src:url('satoshi/Satoshi-Black.otf') format('opentype'); font-weight:900; }
+    @font-face { font-family:'Satoshi'; src:url('satoshi/Satoshi-Bold.otf') format('opentype'); font-weight:700; }
+    @font-face { font-family:'Satoshi'; src:url('satoshi/Satoshi-Medium.otf') format('opentype'); font-weight:500; }
+    @font-face { font-family:'Satoshi'; src:url('satoshi/Satoshi-Regular.otf') format('opentype'); font-weight:400; }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --obsidian:#1a1a1a; --limestone:#dcdad9; --graphite:#494947;
+      --gravel:#7b787a; --mist:#bebebf; --pebble:#9fa4a2;
+    }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Satoshi','Inter',sans-serif; background:var(--obsidian); color:var(--limestone); min-height:100vh; overflow-x:hidden; }
+
+    #particles-canvas { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      padding:24px 60px; display:flex; align-items:center; justify-content:space-between;
+      transition:background 0.5s, backdrop-filter 0.5s, border-color 0.5s;
+      border-bottom:1px solid transparent;
+    }
+    nav.scrolled { background:rgba(26,26,26,0.85); backdrop-filter:blur(16px); border-bottom:1px solid rgba(220,218,217,0.08); }
+    .nav-logo { font-size:18px; font-weight:900; letter-spacing:-0.02em; text-decoration:none; color:var(--limestone); }
+
+    .page {
+      min-height:100vh; display:flex; align-items:center; justify-content:center;
+      padding:120px 24px 60px; position:relative; z-index:1;
+    }
+
+    @keyframes spin-slow { 100% { transform:rotate(360deg); } }
+    .card-glow {
+      position:relative; overflow:hidden; border-radius:20px; padding:1.5px;
+      width:100%; max-width:500px;
+    }
+    .card-glow::before {
+      content:''; position:absolute; top:-60%; left:-60%; width:220%; height:220%;
+      background:conic-gradient(transparent, transparent 70%, rgba(220,218,217,0.25) 100%);
+      animation:spin-slow 6s linear infinite; pointer-events:none;
+    }
+    .card-inner {
+      background:rgba(26,26,26,0.95); border-radius:18px; padding:52px 48px;
+      position:relative; z-index:1;
+    }
+
+    @keyframes fade-up { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+    .label {
+      display:inline-block; font-size:10px; font-weight:700; letter-spacing:0.18em;
+      text-transform:uppercase; color:var(--gravel);
+      border:1px solid rgba(220,218,217,0.18); padding:5px 14px; border-radius:100px;
+      margin-bottom:24px; animation:fade-up 0.6s ease 0.1s both;
+    }
+    h1 {
+      font-size:clamp(24px,3vw,32px); font-weight:900; line-height:1.1;
+      letter-spacing:-0.02em; margin-bottom:12px;
+      animation:fade-up 0.6s ease 0.2s both;
+    }
+    .subtitle {
+      font-size:15px; color:var(--gravel); line-height:1.7; margin-bottom:40px;
+      animation:fade-up 0.6s ease 0.3s both;
+    }
+
+    .form-group { margin-bottom:18px; animation:fade-up 0.6s ease both; }
+    .form-group:nth-child(1) { animation-delay:0.35s; }
+    .form-group:nth-child(2) { animation-delay:0.42s; }
+    .form-group:nth-child(3) { animation-delay:0.49s; }
+    label { display:block; font-size:12px; font-weight:700; letter-spacing:0.08em; color:var(--pebble); text-transform:uppercase; margin-bottom:8px; }
+    input {
+      width:100%; padding:14px 18px;
+      background:rgba(220,218,217,0.05); border:1px solid rgba(220,218,217,0.12);
+      border-radius:9px; color:var(--limestone); font-family:'Satoshi',sans-serif;
+      font-size:15px; font-weight:500; outline:none;
+      transition:border-color 0.3s, background 0.3s;
+    }
+    input:focus { border-color:rgba(220,218,217,0.4); background:rgba(220,218,217,0.08); }
+    input::placeholder { color:var(--gravel); }
+
+    .btn-submit {
+      width:100%; padding:16px; border:none; border-radius:9px;
+      background:var(--limestone); color:var(--obsidian);
+      font-family:'Satoshi',sans-serif; font-size:15px; font-weight:700;
+      letter-spacing:0.02em; cursor:pointer; margin-top:8px;
+      transition:transform 0.25s, box-shadow 0.25s, opacity 0.25s;
+      animation:fade-up 0.6s ease 0.56s both;
+      position:relative; overflow:hidden;
+    }
+    .btn-submit::after { content:''; position:absolute; inset:0; background:rgba(255,255,255,0.15); opacity:0; transition:opacity 0.3s; }
+    .btn-submit:hover::after { opacity:1; }
+    .btn-submit:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(220,218,217,0.2); }
+    .btn-submit:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+
+    .disclaimer { font-size:12px; color:var(--gravel); text-align:center; margin-top:20px; line-height:1.6; animation:fade-up 0.6s ease 0.62s both; }
+
+    .success-state { display:none; text-align:center; }
+    .success-icon {
+      width:64px; height:64px; border-radius:50%; background:rgba(220,218,217,0.1);
+      border:1px solid rgba(220,218,217,0.2);
+      display:flex; align-items:center; justify-content:center; margin:0 auto 28px;
+    }
+    .success-state h2 { font-size:24px; font-weight:900; margin-bottom:12px; }
+    .success-state p { font-size:15px; color:var(--gravel); line-height:1.7; margin-bottom:36px; }
+
+    @media(max-width:600px) {
+      nav { padding:20px 24px; }
+      .card-glow { max-width:100%; }
+      .card-inner { padding:40px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">@divarebel.on</a>
+</nav>
+
+<main class="page">
+  <div class="card-glow">
+    <div class="card-inner">
+
+      <div id="form-state">
+        <span class="label">Comunidade Gratuita</span>
+        <h1>Entre para a comunidade do Método Reunião Garantida</h1>
+        <p class="subtitle">Acesse conteúdos gratuitos sobre prospecção, vendas B2B e geração de reuniões — sem precisar investir nada agora.</p>
+
+        <form id="signup-form">
+          <div class="form-group">
+            <label for="nome">Nome completo</label>
+            <input type="text" id="nome" name="nome" placeholder="Seu nome" required autocomplete="name" />
+          </div>
+          <div class="form-group">
+            <label for="telefone">WhatsApp</label>
+            <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required autocomplete="tel" />
+          </div>
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="seu@email.com" required autocomplete="email" />
+          </div>
+          <button type="submit" class="btn-submit" id="submit-btn">Quero entrar na comunidade →</button>
+        </form>
+        <p class="disclaimer">Seus dados estão seguros e não serão compartilhados.</p>
+      </div>
+
+      <div class="success-state" id="success-state">
+        <div class="success-icon">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <path d="M6 14l6 6 10-10" stroke="#dcdad9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h2>Bem-vinda à comunidade! 🎉</h2>
+        <p>Seu cadastro foi feito. Agora você tem acesso aos conteúdos exclusivos do Método Reunião Garantida.</p>
+        <a href="membros.html" style="display:inline-block;padding:15px 36px;background:var(--limestone);color:var(--obsidian);font-family:'Satoshi',sans-serif;font-size:14px;font-weight:700;border-radius:9px;text-decoration:none;letter-spacing:0.02em;">Acessar a área de membros →</a>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script>
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyKVRUIdSz7KU9hwoscAHKlODLNe0fUfGn74eQJmIRaKld-7UoiuZze-cahURaqM1YvBQ/exec';
+
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  document.getElementById('signup-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Cadastrando...';
+
+    const nome     = document.getElementById('nome').value.trim();
+    const telefone = document.getElementById('telefone').value.trim();
+    const email    = document.getElementById('email').value.trim().toLowerCase();
+
+    localStorage.setItem('diva_nome',  nome);
+    localStorage.setItem('diva_email', email);
+
+    const params = new URLSearchParams({ action:'register', site:'diva', nome, telefone, email });
+    fetch(SCRIPT_URL + '?' + params.toString(), { mode:'no-cors' }).catch(() => {});
+
+    setTimeout(() => {
+      document.getElementById('form-state').style.display   = 'none';
+      document.getElementById('success-state').style.display = 'block';
+    }, 800);
+  });
+
+  // Particles
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, pts = [];
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  resize(); window.addEventListener('resize', resize);
+  class P {
+    constructor() { this.reset(); }
+    reset() { this.x=Math.random()*W; this.y=Math.random()*H; this.r=Math.random()*1.2+0.3; this.vx=(Math.random()-.5)*.25; this.vy=(Math.random()-.5)*.25; this.a=Math.random()*.3+.05; }
+    update() { this.x+=this.vx; this.y+=this.vy; if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset(); }
+    draw() { ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fillStyle=`rgba(220,218,217,${this.a})`; ctx.fill(); }
+  }
+  for(let i=0;i<60;i++) pts.push(new P());
+  function loop() {
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{p.update();p.draw();});
+    for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++) {
+      const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.sqrt(dx*dx+dy*dy);
+      if(d<90){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(220,218,217,${.05*(1-d/90)})`;ctx.lineWidth=.5;ctx.stroke();}
+    }
+    requestAnimationFrame(loop);
+  }
+  loop();
+</script>
+</body>
+</html>
