@@ -173,6 +173,7 @@
       <a href="#vácuo">O Vácuo</a>
       <a href="#método">Metodologia</a>
       <a href="#sobre">Sobre</a>
+      <a href="cursos.html" style="color:var(--limestone);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:0.04em;transition:color 0.3s;">Cursos</a>
       <a href="https://hotmart.com/pt-br/club/26-745-609-aline-siqueira-santos-de-castro-lima/auth/login?realm=club" target="_blank" class="nav-btn" onclick="fbq('track','Lead')">Aula Gratuita</a>
       <a href="comunidade.html" style="color:var(--limestone);background:rgba(220,218,217,0.1);padding:7px 16px;border-radius:100px;border:1px solid rgba(220,218,217,0.2);font-size:13px;font-weight:700;text-decoration:none;letter-spacing:0.02em;">✦ Comunidade gratuita</a>
     </div>
@@ -282,6 +283,109 @@
   function loop(){ ctx.clearRect(0,0,canvas.width,canvas.height); pts.forEach(p => { p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>canvas.width) p.vx*=-1; if(p.y<0||p.y>canvas.height) p.vy*=-1; p.draw(); }); requestAnimationFrame(loop); }
   resize(); for(let i=0; i<90; i++) pts.push(new Pt()); loop();
   window.addEventListener('resize', resize);
+</script>
+
+<!-- ═══════════════════════════════════════════
+     EFEITOS CINEMÁTICOS — @divarebel.on
+     ═══════════════════════════════════════════ -->
+<style>
+  *,*::before,*::after{cursor:none!important;}
+  .c-dot{position:fixed;width:5px;height:5px;background:#dcdad9;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:transform .08s,opacity .15s;}
+  .c-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(220,218,217,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s,opacity .2s;}
+  .c-ring.hov{width:52px;height:52px;border-color:#dcdad9;}
+  .c-ring.clk{width:22px;height:22px;}
+  #cine-grain{position:fixed;inset:0;z-index:9997;pointer-events:none;opacity:.03;}
+  body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;
+    background:radial-gradient(650px circle at var(--smx,50%) var(--smy,50%),rgba(220,218,217,.04),transparent 50%);}
+  .ripple-fx{position:fixed;border-radius:50%;pointer-events:none;z-index:9996;}
+</style>
+<canvas id="cine-grain"></canvas>
+<div class="c-dot" id="cdot"></div>
+<div class="c-ring" id="cring"></div>
+<script>
+(function(){
+  'use strict';
+  const dot=document.getElementById('cdot'),ring=document.getElementById('cring');
+  let mx=0,my=0,rx=0,ry=0;
+
+  /* Cursor */
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX;my=e.clientY;
+    dot.style.left=mx+'px';dot.style.top=my+'px';
+    document.body.style.setProperty('--smx',mx+'px');
+    document.body.style.setProperty('--smy',my+'px');
+  });
+  (function raf(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(raf);})();
+  document.querySelectorAll('a,button,.card-6,[class*="btn"]').forEach(el=>{
+    el.addEventListener('mouseenter',()=>ring.classList.add('hov'));
+    el.addEventListener('mouseleave',()=>ring.classList.remove('hov'));
+  });
+  document.addEventListener('mousedown',()=>ring.classList.add('clk'));
+  document.addEventListener('mouseup',()=>ring.classList.remove('clk'));
+
+  /* Film grain */
+  const gc=document.getElementById('cine-grain'),gx=gc.getContext('2d');
+  function gsz(){gc.width=innerWidth;gc.height=innerHeight;} gsz();window.addEventListener('resize',gsz);
+  function grain(){const d=gx.createImageData(gc.width,gc.height),b=d.data;for(let i=0;i<b.length;i+=4){const v=~~(Math.random()*255);b[i]=b[i+1]=b[i+2]=v;b[i+3]=255;}gx.putImageData(d,0,0);setTimeout(()=>requestAnimationFrame(grain),90);}
+  grain();
+
+  /* Magnetic buttons */
+  document.querySelectorAll('[class*="btn"],[class*="nav-btn"]').forEach(el=>{
+    el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect();el.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.25}px,${(e.clientY-r.top-r.height/2)*.25}px)`;});
+    el.addEventListener('mouseleave',()=>el.style.transform='');
+  });
+
+  /* 3D card tilt */
+  document.querySelectorAll('.card-6,.about-wrap>*').forEach(el=>{
+    el.style.transition='transform 0.12s ease,box-shadow 0.3s';
+    el.addEventListener('mousemove',e=>{
+      const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      el.style.transform=`perspective(800px) rotateY(${x*8}deg) rotateX(${-y*8}deg) translateZ(10px)`;
+    });
+    el.addEventListener('mouseleave',()=>el.style.transform='perspective(800px) rotateY(0) rotateX(0) translateZ(0)');
+  });
+
+  /* Ripple click */
+  document.addEventListener('click',e=>{
+    const r=document.createElement('div');
+    r.className='ripple-fx';
+    Object.assign(r.style,{left:e.clientX+'px',top:e.clientY+'px',width:'6px',height:'6px',background:'rgba(220,218,217,0.35)',transform:'translate(-50%,-50%)'});
+    document.body.appendChild(r);
+    r.animate([{transform:'translate(-50%,-50%) scale(0)',opacity:.8},{transform:'translate(-50%,-50%) scale(18)',opacity:0}],{duration:650,easing:'ease-out'}).onfinish=()=>r.remove();
+  });
+
+  /* Parallax hero */
+  const hero=document.querySelector('section');
+  if(hero){
+    window.addEventListener('scroll',()=>{
+      const y=scrollY;
+      const el=hero.querySelector('h1,h2,[class*="h1"],[class*="h2"]');
+      if(el)el.style.transform=`translateY(${y*.08}px)`;
+    },{passive:true});
+  }
+
+  /* Text scramble on headings */
+  const CHARS='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@#$&';
+  function scramble(el){
+    const orig=el.dataset.orig||(el.dataset.orig=el.textContent);
+    let i=0;
+    const iv=setInterval(()=>{
+      el.textContent=orig.split('').map((c,j)=>c===' '?' ':j<i?orig[j]:CHARS[~~(Math.random()*CHARS.length)]).join('');
+      i+=0.5;if(i>=orig.length){el.textContent=orig;clearInterval(iv);}
+    },28);
+  }
+  document.querySelectorAll('h1,h2,[class*="h1"],[class*="h2"]').forEach(el=>{
+    el.style.cursor='default';
+    el.addEventListener('mouseenter',()=>scramble(el));
+  });
+
+  /* Enhanced section reveals — blur + slide */
+  const revStyle=document.createElement('style');
+  revStyle.textContent='.reveal{opacity:0;transform:translateY(32px);filter:blur(6px);transition:opacity .8s ease,transform .8s ease,filter .8s ease;}.reveal.in{opacity:1;transform:none;filter:none;}';
+  document.head.appendChild(revStyle);
+  new IntersectionObserver((entries)=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');}}),{threshold:.1}).observe&&
+  document.querySelectorAll('.reveal').forEach(el=>new IntersectionObserver(([e])=>{if(e.isIntersecting){e.target.classList.add('in');}},{threshold:.1}).observe(el));
+})();
 </script>
 </body>
 </html>

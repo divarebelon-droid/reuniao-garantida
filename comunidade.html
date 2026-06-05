@@ -216,6 +216,19 @@
     requestAnimationFrame(loop);
   }
   loop();
+
+  /* 3D card tilt */
+  document.querySelectorAll('.card-glow,.card-inner').forEach(el=>{
+    el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform=`perspective(800px) rotateY(${x*6}deg) rotateX(${-y*6}deg) translateZ(8px)`;});
+    el.addEventListener('mouseleave',()=>el.style.transform='');
+  });
+  /* Magnetic button */
+  document.querySelectorAll('.btn-submit').forEach(el=>{
+    el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect();el.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.2}px,${(e.clientY-r.top-r.height/2)*.2}px)`;});
+    el.addEventListener('mouseleave',()=>el.style.transform='');
+  });
+  /* Ripple */
+  document.addEventListener('click',e=>{const r=document.createElement('div');Object.assign(r.style,{position:'fixed',left:e.clientX+'px',top:e.clientY+'px',width:'6px',height:'6px',borderRadius:'50%',background:'rgba(220,218,217,.3)',pointerEvents:'none',zIndex:'9996',transform:'translate(-50%,-50%)'});document.body.appendChild(r);r.animate([{transform:'translate(-50%,-50%) scale(0)',opacity:.7},{transform:'translate(-50%,-50%) scale(16)',opacity:0}],{duration:600,easing:'ease-out'}).onfinish=()=>r.remove();});
 </script>
 </body>
 </html>
