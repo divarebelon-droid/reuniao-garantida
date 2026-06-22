@@ -229,81 +229,129 @@
 
     <div class="progress-section">
       <div class="progress-header">
-        <span class="section-title">Seu progresso</span>
-        <span style="font-size:12px;color:var(--pebble);">1 de 3 módulos</span>
+        <span class="section-title">Módulo Geral — Gratuito</span>
+        <span style="font-size:12px;color:var(--pebble);">4 aulas disponíveis</span>
       </div>
       <div class="progress-bar-outer">
-        <div class="progress-bar-inner" style="width:33%"></div>
+        <div class="progress-bar-inner" style="width:80%"></div>
       </div>
     </div>
 
-    <p class="section-title" style="margin-bottom:20px;">Módulos disponíveis</p>
+    <p class="section-title" style="margin-bottom:20px;">Aulas do Módulo Geral</p>
     <div class="modules-grid">
 
-      <!-- MÓDULO 1 — LIBERADO -->
+      <!-- AULA 1 -->
       <div class="module-card" onclick="openLesson('aula1')">
         <div class="module-thumb">
-          <div class="play-btn">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="#dcdad9"/></svg>
-          </div>
+          <div class="play-btn"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="#dcdad9"/></svg></div>
           <span class="module-locked"><span class="badge-free">Gratuito</span></span>
         </div>
         <div class="module-body">
-          <div class="module-num">Módulo 01</div>
-          <div class="module-title">Como garantir reuniões com decisores</div>
-          <div class="module-desc">A estratégia completa para prospectar, abordar e agendar reuniões com quem decide a compra.</div>
-          <div class="module-duration">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#9fa4a2" stroke-width="1.2"/><path d="M6 3v3l2 1.5" stroke="#9fa4a2" stroke-width="1.2" stroke-linecap="round"/></svg>
-            ~20 min
-          </div>
+          <div class="module-num">Aula 01</div>
+          <div class="module-title">Como vai funcionar?</div>
+          <div class="module-desc">Entenda a estrutura do método e o que você vai aprender ao longo das aulas deste módulo gratuito.</div>
+          <div class="module-duration"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#9fa4a2" stroke-width="1.2"/><path d="M6 3v3l2 1.5" stroke="#9fa4a2" stroke-width="1.2" stroke-linecap="round"/></svg>Assistir</div>
         </div>
       </div>
 
-      <!-- MÓDULO 2 — EM BREVE -->
-      <div class="module-card" style="opacity:0.5;cursor:default;">
+      <!-- AULA 2 -->
+      <div class="module-card" onclick="openLesson('aula2')">
         <div class="module-thumb">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="rgba(220,218,217,0.3)" stroke-width="1.5"/><path d="M16 16l8 4-8 4v-8z" fill="rgba(220,218,217,0.3)"/></svg>
-          <span class="module-locked"><span class="badge-locked">Em breve</span></span>
+          <div class="play-btn"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="#dcdad9"/></svg></div>
+          <span class="module-locked"><span class="badge-free">Gratuito</span></span>
         </div>
         <div class="module-body">
-          <div class="module-num">Módulo 02</div>
-          <div class="module-title">Scripts e abordagens que convertem</div>
-          <div class="module-desc">Os scripts testados para cold call, LinkedIn e WhatsApp que geram respostas e aberturas.</div>
-          <div class="module-duration">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#9fa4a2" stroke-width="1.2"/><path d="M6 3v3l2 1.5" stroke="#9fa4a2" stroke-width="1.2" stroke-linecap="round"/></svg>
-            Em breve
-          </div>
+          <div class="module-num">Aula 02</div>
+          <div class="module-title">O que vendemos?</div>
+          <div class="module-desc">Clareza sobre o produto, a oferta e como posicionar o que você vende para o mercado B2B.</div>
+          <div class="module-duration"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#9fa4a2" stroke-width="1.2"/><path d="M6 3v3l2 1.5" stroke="#9fa4a2" stroke-width="1.2" stroke-linecap="round"/></svg>Assistir</div>
         </div>
       </div>
 
-      <!-- MÓDULO 3 — EM BREVE -->
-      <div class="module-card" style="opacity:0.5;cursor:default;">
+      <!-- AULA 3 -->
+      <div class="module-card" onclick="openLesson('aula3')">
         <div class="module-thumb">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="rgba(220,218,217,0.3)" stroke-width="1.5"/><path d="M16 16l8 4-8 4v-8z" fill="rgba(220,218,217,0.3)"/></svg>
-          <span class="module-locked"><span class="badge-locked">Em breve</span></span>
+          <div class="play-btn"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="#dcdad9"/></svg></div>
+          <span class="module-locked"><span class="badge-free">Gratuito</span></span>
         </div>
         <div class="module-body">
-          <div class="module-num">Módulo 03</div>
-          <div class="module-title">Da reunião ao fechamento</div>
-          <div class="module-desc">Como conduzir a reunião com autoridade, apresentar a solução e avançar para o contrato.</div>
-          <div class="module-duration">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#9fa4a2" stroke-width="1.2"/><path d="M6 3v3l2 1.5" stroke="#9fa4a2" stroke-width="1.2" stroke-linecap="round"/></svg>
-            Em breve
+          <div class="module-num">Aula 03</div>
+          <div class="module-title">Como criar uma oferta que o lead pede pra comprar?</div>
+          <div class="module-desc">A estrutura de oferta que desperta desejo genuíno e faz o lead tomar a iniciativa de comprar.</div>
+          <div class="module-duration"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#9fa4a2" stroke-width="1.2"/><path d="M6 3v3l2 1.5" stroke="#9fa4a2" stroke-width="1.2" stroke-linecap="round"/></svg>Assistir</div>
+        </div>
+      </div>
+
+      <!-- AULA 4 — BÔNUS -->
+      <div class="module-card" onclick="openLesson('aula4')">
+        <div class="module-thumb">
+          <div class="play-btn"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="#dcdad9"/></svg></div>
+          <span class="module-locked"><span class="badge-free">Bônus</span></span>
+        </div>
+        <div class="module-body">
+          <div class="module-num">Aula 04 — Bônus</div>
+          <div class="module-title">Aulão de Prospecção</div>
+          <div class="module-desc">Treinamento intensivo com tudo que você precisa saber sobre prospecção B2B na prática.</div>
+          <div class="module-duration"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#9fa4a2" stroke-width="1.2"/><path d="M6 3v3l2 1.5" stroke="#9fa4a2" stroke-width="1.2" stroke-linecap="round"/></svg>Assistir</div>
+        </div>
+      </div>
+
+      <!-- PRÓXIMO PASSO — CTA -->
+      <div class="module-card" onclick="openCTA()" style="border-color:rgba(201,169,110,0.25);background:linear-gradient(135deg,rgba(201,169,110,0.07) 0%,rgba(42,42,42,1) 100%);cursor:pointer;">
+        <div class="module-thumb" style="background:linear-gradient(135deg,rgba(201,169,110,0.18) 0%,rgba(26,26,26,0.95) 100%);">
+          <div class="play-btn" style="background:rgba(201,169,110,0.15);border-color:rgba(201,169,110,0.5);">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 3v14M3 10h14" stroke="#c9a96e" stroke-width="2" stroke-linecap="round"/></svg>
           </div>
+          <span class="module-locked"><span style="background:rgba(201,169,110,0.2);border:1px solid rgba(201,169,110,0.4);border-radius:100px;padding:3px 10px;font-size:10px;font-weight:700;color:#c9a96e;letter-spacing:0.08em;text-transform:uppercase;">Próximo Passo</span></span>
+        </div>
+        <div class="module-body">
+          <div class="module-num" style="color:#c9a96e;">Continue sua jornada</div>
+          <div class="module-title">Reunião Garantida — Curso Completo</div>
+          <div class="module-desc">Desbloqueie prospecção avançada, técnicas de garantia de reunião e o módulo bônus de IA.</div>
+          <div class="module-duration" style="color:#c9a96e;font-weight:700;font-size:14px;">R$47,90 · Acesso imediato</div>
         </div>
       </div>
 
     </div>
 
     <div class="cta-strip">
-      <h3>Quer ir além do conteúdo gratuito?</h3>
-      <p>Quando você estiver pronta para dar o próximo passo, entre em contato e vamos conversar.</p>
+      <h3>Pronta para garantir suas reuniões?</h3>
+      <p>Você já tem a base. Agora é hora de dominar a prospecção, garantir que o lead apareça e usar IA para escalar os resultados — por apenas R$47,90.</p>
       <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-        <a href="https://wa.me/5511982725012" target="_blank" class="btn btn-light">Falar com a Aline →</a>
+        <a href="https://www.asaas.com/c/yqbd8hw0udfpef80" target="_blank" class="btn btn-light">Quero o acesso completo — R$47,90 →</a>
       </div>
     </div>
 
   </main>
+</div>
+
+<!-- CTA MODAL -->
+<div id="cta-modal" onclick="if(event.target===this)closeCTA()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);z-index:300;align-items:center;justify-content:center;padding:24px;">
+  <div style="background:var(--surface2);border:1px solid rgba(201,169,110,0.2);border-radius:20px;width:100%;max-width:660px;max-height:92vh;overflow-y:auto;">
+    <div style="padding:24px 32px;border-bottom:1px solid rgba(220,218,217,0.08);display:flex;justify-content:space-between;align-items:center;">
+      <h3 style="font-size:18px;font-weight:700;color:var(--limestone);">Continue sua jornada</h3>
+      <button onclick="closeCTA()" style="background:none;border:none;color:var(--gravel);cursor:pointer;font-size:22px;line-height:1;padding:4px;">✕</button>
+    </div>
+    <div style="padding:40px;line-height:1.8;font-family:'Satoshi',sans-serif;">
+      <p style="font-size:18px;font-weight:900;color:var(--limestone);margin-bottom:16px;">Você chegou até aqui.</p>
+      <p style="color:var(--gravel);margin-bottom:16px;">Isso por si só já diz muito sobre você.</p>
+      <p style="color:var(--gravel);margin-bottom:24px;">Você entende como o método funciona. Sabe o que vender. Sabe como criar uma oferta que o lead pede pra comprar. E passou pelo aulão de prospecção.</p>
+      <p style="color:var(--gravel);margin-bottom:28px;">Mas dominar o mercado B2B exige mais do que fundamentos. Exige <strong style="color:var(--limestone);">consistência, técnica e as ferramentas certas</strong>.</p>
+      <p style="font-size:14px;font-weight:700;color:var(--limestone);margin-bottom:14px;">No Reunião Garantida você vai aprender:</p>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px;">
+        <div style="display:flex;align-items:flex-start;gap:12px;"><span style="color:#c9a96e;font-weight:900;font-size:16px;margin-top:1px;">→</span><span style="color:var(--gravel);"><strong style="color:var(--limestone);">Módulo Prospecção</strong> — O que fazer antes, como não ser ignorada, exemplos reais na prática e treinamento com alunas</span></div>
+        <div style="display:flex;align-items:flex-start;gap:12px;"><span style="color:#c9a96e;font-weight:900;font-size:16px;margin-top:1px;">→</span><span style="color:var(--gravel);"><strong style="color:var(--limestone);">Módulo Garantindo a Reunião</strong> — Como conduzir, fazer o lead aparecer e garantir que a reunião aconteça de verdade</span></div>
+        <div style="display:flex;align-items:flex-start;gap:12px;"><span style="color:#c9a96e;font-weight:900;font-size:16px;margin-top:1px;">→</span><span style="color:var(--gravel);"><strong style="color:var(--limestone);">Bônus: IA para Prospecção</strong> — Como usar inteligência artificial para reduzir horas de trabalho e prospectar com mais velocidade</span></div>
+      </div>
+      <div style="background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.2);border-radius:14px;padding:28px;margin-bottom:28px;text-align:center;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#c9a96e;margin-bottom:8px;">Acesso completo ao curso</div>
+        <div style="font-size:40px;font-weight:900;color:var(--limestone);letter-spacing:-0.02em;">R$47,90</div>
+        <div style="font-size:13px;color:var(--gravel);margin-top:6px;">Pagamento único · Acesso imediato</div>
+      </div>
+      <a href="https://www.asaas.com/c/yqbd8hw0udfpef80" target="_blank" class="btn btn-light" style="width:100%;justify-content:center;font-size:15px;padding:18px 32px;" onclick="closeCTA()">Quero o acesso completo — R$47,90 →</a>
+      <p style="font-size:11px;color:var(--gravel);text-align:center;margin-top:14px;">Ambiente seguro de pagamento</p>
+    </div>
+  </div>
 </div>
 
 <!-- MODAL -->
@@ -344,9 +392,24 @@
   // Lessons
   const lessons = {
     aula1: {
-      title: 'Módulo 01 — Como garantir reuniões com decisores',
-      video: 'https://www.youtube.com/embed/GdJJVKYKLSY?rel=0&autoplay=1',
-      desc: 'Nessa aula você vai aprender a estratégia completa do Método Reunião Garantida: como identificar decisores, abordá-los com o argumento certo e garantir reuniões qualificadas de forma consistente e previsível.'
+      title: 'Aula 01 — Como vai funcionar?',
+      video: 'https://www.youtube.com/embed/xLLpaBo_MiY?rel=0&autoplay=1',
+      desc: 'Entenda a estrutura completa do Método Reunião Garantida e o que você vai aprender ao longo das aulas deste módulo gratuito.'
+    },
+    aula2: {
+      title: 'Aula 02 — O que vendemos?',
+      video: 'https://www.youtube.com/embed/ExRWMk0_H88?rel=0&autoplay=1',
+      desc: 'Clareza total sobre o produto, a oferta e como posicionar o que você vende para o mercado B2B de forma que o lead entenda o valor imediatamente.'
+    },
+    aula3: {
+      title: 'Aula 03 — Como criar uma oferta que o lead pede pra comprar?',
+      video: 'https://www.youtube.com/embed/TyrFkSu4vKI?rel=0&autoplay=1',
+      desc: 'A estrutura de oferta que desperta desejo genuíno no lead e faz com que ele tome a iniciativa de pedir para comprar — sem pressão, sem objeções.'
+    },
+    aula4: {
+      title: 'Aula 04 — Bônus: Aulão de Prospecção',
+      video: 'https://www.youtube.com/embed/BUlYKc2cgwQ?rel=0&autoplay=1',
+      desc: 'Treinamento intensivo com tudo que você precisa saber sobre prospecção B2B: abordagens, scripts, canais e as estratégias que realmente geram respostas.'
     }
   };
 
@@ -367,7 +430,22 @@
     document.body.style.overflow = '';
   }
 
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLesson({target: document.getElementById('modal-overlay')}); });
+  function openCTA() {
+    document.getElementById('cta-modal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCTA() {
+    document.getElementById('cta-modal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeLesson({target: document.getElementById('modal-overlay')});
+      closeCTA();
+    }
+  });
 </script>
 </body>
 </html>

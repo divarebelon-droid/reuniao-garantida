@@ -265,25 +265,37 @@
   </div>
 
   <nav class="sb-nav">
-    <div class="sb-section">Módulos</div>
-    <button class="sb-item active" onclick="openMod('mod1',this)">
-      <span class="sb-num">1</span> Módulo 01
+    <div class="sb-section">Prospecção</div>
+    <button class="sb-item active" onclick="selectLesson('p1a1',this)">
+      <span class="sb-num">1</span> O que fazer antes?
     </button>
-    <button class="sb-item" onclick="openMod('mod2',this)">
-      <span class="sb-num">2</span> Módulo 02
-      <svg class="sb-lock" width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1.5" stroke="#7b787a" stroke-width="1.2"/><path d="M4 5V4a2 2 0 014 0v1" stroke="#7b787a" stroke-width="1.2"/></svg>
+    <button class="sb-item" onclick="selectLesson('p1a2',this)">
+      <span class="sb-num">2</span> Como não ser ignorada
     </button>
-    <button class="sb-item" onclick="openMod('mod3',this)">
-      <span class="sb-num">3</span> Módulo 03
-      <svg class="sb-lock" width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1.5" stroke="#7b787a" stroke-width="1.2"/><path d="M4 5V4a2 2 0 014 0v1" stroke="#7b787a" stroke-width="1.2"/></svg>
+    <button class="sb-item" onclick="selectLesson('p1a3',this)">
+      <span class="sb-num">3</span> Exemplos na prática
     </button>
-    <button class="sb-item" onclick="openMod('mod4',this)">
-      <span class="sb-num">4</span> Módulo 04
-      <svg class="sb-lock" width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1.5" stroke="#7b787a" stroke-width="1.2"/><path d="M4 5V4a2 2 0 014 0v1" stroke="#7b787a" stroke-width="1.2"/></svg>
+    <button class="sb-item" onclick="selectLesson('p1a4',this)">
+      <span class="sb-num">★</span> Bônus: Treinamento
     </button>
-    <button class="sb-item" onclick="openMod('mod5',this)">
-      <span class="sb-num">5</span> Módulo 05
-      <svg class="sb-lock" width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1.5" stroke="#7b787a" stroke-width="1.2"/><path d="M4 5V4a2 2 0 014 0v1" stroke="#7b787a" stroke-width="1.2"/></svg>
+
+    <div class="sb-section" style="margin-top:8px;">Garantindo a Reunião</div>
+    <button class="sb-item" onclick="selectLesson('p2a1',this)">
+      <span class="sb-num">1</span> Como dizem que é
+    </button>
+    <button class="sb-item" onclick="selectLesson('p2a2',this)">
+      <span class="sb-num">2</span> O lead aparece na reunião
+    </button>
+    <button class="sb-item" onclick="selectLesson('p2a3',this)">
+      <span class="sb-num">3</span> Na prática
+    </button>
+
+    <div class="sb-section" style="margin-top:8px;">✦ Bônus: IA</div>
+    <button class="sb-item" onclick="selectLesson('p3a1',this)">
+      <span class="sb-num">1</span> IA para prospectar
+    </button>
+    <button class="sb-item" onclick="selectLesson('p3a2',this)">
+      <span class="sb-num">★</span> Materiais para IA
     </button>
   </nav>
 
@@ -332,7 +344,7 @@
       <div class="section-header">
         <span class="section-title">Aula em destaque</span>
       </div>
-      <div class="featured-card" id="featured-card" onclick="openLesson('aula1')">
+      <div class="featured-card" id="featured-card" onclick="openLesson('p1a1')">
         <div class="featured-thumb">
           <div class="scanlines"></div>
           <div class="play-cinema">
@@ -343,13 +355,13 @@
           </div>
         </div>
         <div class="featured-info">
-          <div class="featured-num">Módulo 01 · Aula 01</div>
-          <h3 class="featured-title" id="feat-title">Título da aula em breve</h3>
-          <p class="featured-desc" id="feat-desc">Você ainda não adicionou o conteúdo deste módulo. Me envie os detalhes e eu configuro!</p>
+          <div class="featured-num" id="feat-num">Prospecção · Aula 01</div>
+          <h3 class="featured-title" id="feat-title">O que fazer antes de prospectar?</h3>
+          <p class="featured-desc" id="feat-desc">Aprenda o que você precisa preparar antes de começar a prospectar: ICP, pesquisa de mercado e o mindset certo para aumentar drasticamente suas chances de resposta.</p>
           <div class="featured-meta">
             <div class="meta-item">
               <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#9fa4a2" stroke-width="1.2"/><path d="M6.5 4v3l2 1.5" stroke="#9fa4a2" stroke-width="1.2" stroke-linecap="round"/></svg>
-              <span id="feat-dur">Em breve</span>
+              <span id="feat-dur">Assistir</span>
             </div>
           </div>
         </div>
@@ -361,19 +373,40 @@
       <span class="section-title">Todos os módulos</span>
     </div>
     <div class="modules-grid">
-      <div class="mod-card" onclick="openLesson('aula1')">
+
+      <!-- PROSPECÇÃO -->
+      <div class="mod-card" onclick="selectLesson('p1a1',null);openLesson('p1a1')">
         <div class="mod-top"><span class="mod-num">01</span></div>
-        <div class="mod-title" id="mod1-title">Módulo 01</div>
-        <div class="mod-desc" id="mod1-desc">Conteúdo sendo preparado. Me envie o título e descrição!</div>
+        <div class="mod-title">Prospecção</div>
+        <div class="mod-desc">O que fazer antes de prospectar, como não ser ignorada, exemplos reais na prática e treinamento com alunas.</div>
         <div class="mod-footer">
-          <div class="mod-dur"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#9fa4a2" stroke-width="1.2"/><path d="M6 3v3l2 1.5" stroke="#9fa4a2" stroke-width="1.2" stroke-linecap="round"/></svg><span id="mod1-dur">—</span></div>
+          <div class="mod-dur"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#9fa4a2" stroke-width="1.2"/><path d="M6 3v3l2 1.5" stroke="#9fa4a2" stroke-width="1.2" stroke-linecap="round"/></svg>4 aulas</div>
           <span class="mod-arrow">→</span>
         </div>
       </div>
-      <div class="mod-card locked"><div class="mod-top"><span class="mod-num locked-num">02</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2.5" y="5.5" width="9" height="7" rx="1.5" stroke="#7b787a" stroke-width="1.3"/><path d="M4.5 5.5V4a2.5 2.5 0 015 0v1.5" stroke="#7b787a" stroke-width="1.3"/></svg></div><div class="mod-title" style="color:var(--gravel)">Módulo 02</div><div class="mod-desc">Em breve</div></div>
-      <div class="mod-card locked"><div class="mod-top"><span class="mod-num locked-num">03</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2.5" y="5.5" width="9" height="7" rx="1.5" stroke="#7b787a" stroke-width="1.3"/><path d="M4.5 5.5V4a2.5 2.5 0 015 0v1.5" stroke="#7b787a" stroke-width="1.3"/></svg></div><div class="mod-title" style="color:var(--gravel)">Módulo 03</div><div class="mod-desc">Em breve</div></div>
-      <div class="mod-card locked"><div class="mod-top"><span class="mod-num locked-num">04</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2.5" y="5.5" width="9" height="7" rx="1.5" stroke="#7b787a" stroke-width="1.3"/><path d="M4.5 5.5V4a2.5 2.5 0 015 0v1.5" stroke="#7b787a" stroke-width="1.3"/></svg></div><div class="mod-title" style="color:var(--gravel)">Módulo 04</div><div class="mod-desc">Em breve</div></div>
-      <div class="mod-card locked"><div class="mod-top"><span class="mod-num locked-num">05</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2.5" y="5.5" width="9" height="7" rx="1.5" stroke="#7b787a" stroke-width="1.3"/><path d="M4.5 5.5V4a2.5 2.5 0 015 0v1.5" stroke="#7b787a" stroke-width="1.3"/></svg></div><div class="mod-title" style="color:var(--gravel)">Módulo 05</div><div class="mod-desc">Em breve</div></div>
+
+      <!-- GARANTINDO A REUNIÃO -->
+      <div class="mod-card" onclick="selectLesson('p2a1',null);openLesson('p2a1')">
+        <div class="mod-top"><span class="mod-num">02</span></div>
+        <div class="mod-title">Garantindo a Reunião</div>
+        <div class="mod-desc">Como deve ser a reunião, como fazer o lead aparecer e como garantir que a reunião aconteça na prática.</div>
+        <div class="mod-footer">
+          <div class="mod-dur"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#9fa4a2" stroke-width="1.2"/><path d="M6 3v3l2 1.5" stroke="#9fa4a2" stroke-width="1.2" stroke-linecap="round"/></svg>3 aulas</div>
+          <span class="mod-arrow">→</span>
+        </div>
+      </div>
+
+      <!-- IA PARA PROSPECÇÃO -->
+      <div class="mod-card" onclick="selectLesson('p3a1',null);openLesson('p3a1')" style="border-color:rgba(201,169,110,0.2);background:linear-gradient(135deg,rgba(201,169,110,0.05) 0%,var(--surface2) 100%);">
+        <div class="mod-top"><span class="mod-num" style="color:#c9a96e;background:rgba(201,169,110,0.12);border-color:rgba(201,169,110,0.25);">✦</span></div>
+        <div class="mod-title">IA para Prospecção</div>
+        <div class="mod-desc">Como usar inteligência artificial para reduzir horas de trabalho e os materiais para treinar a IA.</div>
+        <div class="mod-footer">
+          <div class="mod-dur"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#9fa4a2" stroke-width="1.2"/><path d="M6 3v3l2 1.5" stroke="#9fa4a2" stroke-width="1.2" stroke-linecap="round"/></svg>2 aulas · Bônus</div>
+          <span class="mod-arrow" style="color:#c9a96e;">→</span>
+        </div>
+      </div>
+
     </div>
 
     <div class="cta-bar">
@@ -398,6 +431,13 @@
     </div>
     <div class="modal-body">
       <div class="video-cinema"><iframe id="modal-video" src="" title="Aula" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div id="modal-coming" style="display:none;text-align:center;padding:48px 24px;color:var(--gravel);">
+        <div style="width:64px;height:64px;border-radius:50%;background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.25);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 4v10M14 18v2" stroke="#c9a96e" stroke-width="2" stroke-linecap="round"/><circle cx="14" cy="14" r="12" stroke="#c9a96e" stroke-width="1.5"/></svg>
+        </div>
+        <p style="font-size:16px;font-weight:700;color:var(--limestone);margin-bottom:8px;">Vídeo em breve</p>
+        <p style="font-size:14px;line-height:1.6;">Este conteúdo está sendo preparado e será disponibilizado em breve.<br>Fique de olho nas atualizações!</p>
+      </div>
       <p class="modal-desc" id="modal-desc"></p>
     </div>
   </div>
@@ -415,49 +455,67 @@
   document.getElementById('sb-email').textContent    = email;
   if (nome) document.getElementById('banner-name').textContent = `Olá, ${nome.split(' ')[0]}! Acesse os módulos abaixo.`;
 
-  // ══ PROGRESS (customize when you add lessons) ══
-  const TOTAL = 5, DONE = 1;
-  const pct = Math.round(DONE/TOTAL*100);
+  // ══ PROGRESS ══
+  const TOTAL = 3, DONE = 0;
+  const pct = 0;
   const circ = 2 * Math.PI * 21;
   setTimeout(() => {
     document.getElementById('prog-ring').style.strokeDashoffset = circ - (circ * pct / 100);
     document.getElementById('prog-pct').textContent = pct + '%';
-    document.getElementById('prog-label').textContent = `${DONE} de ${TOTAL} módulos`;
+    document.getElementById('prog-label').textContent = `0 de ${TOTAL} módulos`;
   }, 2000);
 
-  // ══ LESSONS DATA — PREENCHA AQUI QUANDO TIVER O CONTEÚDO ══
+  // ══ LESSONS DATA ══
+  // Adicione o link do vídeo em cada aula quando disponível (video: 'https://www.youtube.com/embed/ID?rel=0&autoplay=1')
   const lessons = {
-    aula1: {
-      title: 'Módulo 01 — Adicione o título aqui',
-      video: 'https://www.youtube.com/embed/GdJJVKYKLSY?rel=0&autoplay=1',
-      desc:  'Adicione a descrição desta aula aqui. Me envie os títulos, descrições e links de vídeo para eu configurar cada módulo.'
-    }
+    p1a1: { num:'Prospecção · Aula 01', title:'O que fazer antes de prospectar?',                        video:'', desc:'Aprenda o que você precisa preparar antes de começar a prospectar: ICP, pesquisa de mercado e o mindset certo para aumentar drasticamente suas chances de resposta.' },
+    p1a2: { num:'Prospecção · Aula 02', title:'Como não ser ignorada na prospecção',                     video:'', desc:'As técnicas que fazem a diferença entre uma mensagem ignorada e uma que gera resposta imediata — abordagem, timing e personalização.' },
+    p1a3: { num:'Prospecção · Aula 03', title:'Exemplos de prospecção na prática',                       video:'', desc:'Veja exemplos reais de prospecção funcionando: mensagens, scripts e abordagens testadas que geram reuniões qualificadas.' },
+    p1a4: { num:'Prospecção · Bônus',   title:'Treinamento com alunas',                                  video:'', desc:'Sessão de treinamento prático com alunas reais — veja como aplicar o método em situações do dia a dia da prospecção.' },
+    p2a1: { num:'Reunião · Aula 01',    title:'Como dizem que é e como deve ser',                        video:'', desc:'Desmistifique o que realmente funciona em uma reunião de vendas B2B: quebre os mitos e aprenda como deve ser na prática.' },
+    p2a2: { num:'Reunião · Aula 02',    title:'Como fazer o lead aparecer na reunião',                   video:'', desc:'As estratégias comprovadas para garantir que o lead confirme, apareça e esteja preparado para a conversa — sem no-show.' },
+    p2a3: { num:'Reunião · Aula 03',    title:'Garantindo que a reunião aconteça na prática',            video:'', desc:'O passo a passo completo para blindar sua reunião contra cancelamentos, dar continuidade e avançar para o fechamento.' },
+    p3a1: { num:'IA para Prospecção · Aula 01', title:'Como usar a IA para reduzir o trabalho de prospecção', video:'', desc:'Aprenda a usar inteligência artificial para automatizar pesquisa, personalizar abordagens e prospectar com muito mais velocidade.' },
+    p3a2: { num:'IA para Prospecção · Materiais', title:'Materiais usados para treinar a IA',           video:'', desc:'Acesso aos materiais, prompts e documentos usados para treinar a IA e deixá-la pronta para prospectar no seu nicho.' }
   };
 
-  // Pre-fill module 1 info
-  document.getElementById('feat-title').textContent = lessons.aula1.title;
-  document.getElementById('feat-desc').textContent  = lessons.aula1.desc;
+  let currentLessonId = 'p1a1';
+
+  function selectLesson(id, btn) {
+    currentLessonId = id;
+    const l = lessons[id]; if (!l) return;
+    if (btn) {
+      document.querySelectorAll('.sb-item').forEach(el => el.classList.remove('active'));
+      btn.classList.add('active');
+    }
+    const mod = id.startsWith('p1') ? 'Prospecção' : id.startsWith('p2') ? 'Garantindo a Reunião' : 'IA para Prospecção';
+    document.getElementById('topbar-title').textContent = mod;
+    document.getElementById('feat-num').textContent   = l.num;
+    document.getElementById('feat-title').textContent = l.title;
+    document.getElementById('feat-desc').textContent  = l.desc;
+    document.getElementById('featured-card').onclick  = () => openLesson(id);
+  }
 
   function openLesson(id) {
     const l = lessons[id]; if (!l) return;
     document.getElementById('modal-title').textContent = l.title;
-    document.getElementById('modal-video').src         = l.video;
     document.getElementById('modal-desc').textContent  = l.desc;
+    const iframe = document.getElementById('modal-video');
+    const coming = document.getElementById('modal-coming');
+    if (l.video) {
+      iframe.src = l.video; iframe.style.display = 'block'; coming.style.display = 'none';
+    } else {
+      iframe.src = ''; iframe.style.display = 'none'; coming.style.display = 'block';
+    }
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
 
   function closeLesson(e) {
     if (e && e.target !== document.getElementById('modal-overlay') && !e.target.classList.contains('modal-close') && !e.target.closest('.modal-close')) return;
-    document.getElementById('modal-video').src = document.getElementById('modal-video').src;
+    document.getElementById('modal-video').src = '';
     document.getElementById('modal-overlay').classList.remove('open');
     document.body.style.overflow = '';
-  }
-
-  function openMod(id, btn) {
-    document.querySelectorAll('.sb-item').forEach(el => el.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('topbar-title').textContent = btn.textContent.trim().replace(/\n.*/,'');
   }
 
   function logout() { localStorage.removeItem('diva_nome_curso'); localStorage.removeItem('diva_email_curso'); window.location.href = 'cursos.html'; }
