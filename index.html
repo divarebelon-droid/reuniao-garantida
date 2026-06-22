@@ -174,7 +174,6 @@
       <a href="#método">Metodologia</a>
       <a href="#sobre">Sobre</a>
       <a href="cursos.html" style="color:var(--limestone);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:0.04em;transition:color 0.3s;">Cursos</a>
-      <a href="https://hotmart.com/pt-br/club/26-745-609-aline-siqueira-santos-de-castro-lima/auth/login?realm=club" target="_blank" class="nav-btn" onclick="fbq('track','Lead')">Aula Gratuita</a>
       <a href="comunidade.html" style="color:var(--limestone);background:rgba(220,218,217,0.1);padding:7px 16px;border-radius:100px;border:1px solid rgba(220,218,217,0.2);font-size:13px;font-weight:700;text-decoration:none;letter-spacing:0.02em;">✦ Comunidade gratuita</a>
     </div>
   </div>
@@ -364,19 +363,23 @@
     },{passive:true});
   }
 
-  /* Text scramble on headings */
-  const CHARS='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@#$&';
-  function scramble(el){
-    const orig=el.dataset.orig||(el.dataset.orig=el.textContent);
-    let i=0;
-    const iv=setInterval(()=>{
-      el.textContent=orig.split('').map((c,j)=>c===' '?' ':j<i?orig[j]:CHARS[~~(Math.random()*CHARS.length)]).join('');
-      i+=0.5;if(i>=orig.length){el.textContent=orig;clearInterval(iv);}
-    },28);
-  }
+  /* Heading shimmer — light sweep on hover, text stays fully readable */
+  const shStyle=document.createElement('style');
+  shStyle.textContent=`
+    @keyframes h-shimmer{0%{background-position:-220% center}100%{background-position:220% center}}
+    .h-shimmer{
+      background:linear-gradient(105deg,#dcdad9 30%,#ffffff 43%,rgba(255,255,230,.95) 50%,#ffffff 57%,#dcdad9 70%);
+      background-size:260% auto;
+      -webkit-background-clip:text;background-clip:text;
+      -webkit-text-fill-color:transparent;
+      animation:h-shimmer 1.1s cubic-bezier(.4,0,.2,1) forwards;
+    }`;
+  document.head.appendChild(shStyle);
   document.querySelectorAll('h1,h2,[class*="h1"],[class*="h2"]').forEach(el=>{
     el.style.cursor='default';
-    el.addEventListener('mouseenter',()=>scramble(el));
+    el.addEventListener('mouseenter',()=>el.classList.add('h-shimmer'));
+    el.addEventListener('mouseleave',()=>el.classList.remove('h-shimmer'));
+    el.addEventListener('animationend',()=>el.classList.remove('h-shimmer'));
   });
 
   /* Enhanced section reveals — blur + slide */
