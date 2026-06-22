@@ -201,6 +201,10 @@
                 <input type="email" id="email" placeholder="seu@email.com" required autocomplete="email" />
               </div>
               <button type="submit" class="btn-access" id="btn-access">Entrar no curso →</button>
+              <div id="access-error" style="display:none;margin-top:16px;padding:16px;background:rgba(255,80,80,0.05);border:1px solid rgba(255,80,80,0.2);border-radius:9px;font-size:13px;color:var(--gravel);line-height:1.75;text-align:center;">
+                Esse e-mail ainda não tem acesso ao curso.<br>
+                <a href="https://www.asaas.com/c/yqbd8hw0udfpef80" target="_blank" style="color:#c9a96e;font-weight:700;text-decoration:none;">Adquira o acesso por R$47,90 →</a>
+              </div>
             </form>
           </div>
         </div>
@@ -231,13 +235,21 @@
 <script>
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyKVRUIdSz7KU9hwoscAHKlODLNe0fUfGn74eQJmIRaKld-7UoiuZze-cahURaqM1YvBQ/exec';
 
-  // Auto-login from URL params (for Hotmart integration)
+  // Auto-login from URL params (after Asaas payment redirect)
   const urlParams = new URLSearchParams(window.location.search);
   const autoEmail = urlParams.get('email'), autoNome = urlParams.get('name') || urlParams.get('nome');
   if (autoEmail) {
-    localStorage.setItem('diva_email_curso', autoEmail);
-    if (autoNome) localStorage.setItem('diva_nome_curso', autoNome);
-    window.location.href = 'area-membros-rg.html';
+    (async () => {
+      try {
+        const res = await fetch(SCRIPT_URL + '?action=check_paid&email=' + encodeURIComponent(autoEmail.toLowerCase()));
+        const d = await res.json();
+        if (d.paid) {
+          localStorage.setItem('diva_email_curso', autoEmail.toLowerCase());
+          if (autoNome) localStorage.setItem('diva_nome_curso', autoNome);
+          window.location.href = 'area-membros-rg.html';
+        }
+      } catch(err) { /* let user fill the form */ }
+    })();
   }
 
   // Toggle login panel
@@ -249,19 +261,33 @@
     }
   }
 
-  // Access course
-  function accessCourse(e) {
+  // Access course — verifica pagamento antes de liberar
+  async function accessCourse(e) {
     e.preventDefault();
-    const btn = document.getElementById('btn-access');
-    btn.disabled = true; btn.textContent = 'Entrando...';
+    const btn    = document.getElementById('btn-access');
+    const errDiv = document.getElementById('access-error');
+    errDiv.style.display = 'none';
+    btn.disabled = true; btn.textContent = 'Verificando...';
+
     const nome  = document.getElementById('nome').value.trim();
     const email = document.getElementById('email').value.trim().toLowerCase();
-    localStorage.setItem('diva_nome_curso', nome);
-    localStorage.setItem('diva_email_curso', email);
-    // Track
-    const p = new URLSearchParams({ action:'register', site:'diva_curso', nome, email });
-    fetch(SCRIPT_URL + '?' + p.toString(), { mode:'no-cors' }).catch(() => {});
-    setTimeout(() => window.location.href = 'area-membros-rg.html', 600);
+
+    try {
+      const res  = await fetch(SCRIPT_URL + '?action=check_paid&email=' + encodeURIComponent(email));
+      const data = await res.json();
+      if (data.paid) {
+        localStorage.setItem('diva_nome_curso', nome);
+        localStorage.setItem('diva_email_curso', email);
+        fetch(SCRIPT_URL + '?action=access&site=diva&email=' + encodeURIComponent(email), { mode:'no-cors' }).catch(() => {});
+        window.location.href = 'area-membros-rg.html';
+      } else {
+        errDiv.style.display = 'block';
+        btn.disabled = false; btn.textContent = 'Entrar no curso →';
+      }
+    } catch(err) {
+      errDiv.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Entrar no curso →';
+    }
   }
 
   // Nav scroll
