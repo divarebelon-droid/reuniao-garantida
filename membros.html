@@ -598,6 +598,11 @@
   }
 
   function openUpgrade() {
+    if (email === 'divarebel.on@gmail.com') {
+      localStorage.setItem('diva_email_curso', email);
+      localStorage.setItem('diva_nome_curso', nome);
+      window.location.href = 'area-membros-rg.html'; return;
+    }
     document.getElementById('upg-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
