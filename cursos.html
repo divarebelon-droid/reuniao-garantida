@@ -261,6 +261,9 @@
     }
   }
 
+  // Emails com acesso de administradora (sem verificação de pagamento)
+  const ADMIN_EMAILS = ['divarebel.on@gmail.com'];
+
   // Access course — verifica pagamento antes de liberar
   async function accessCourse(e) {
     e.preventDefault();
@@ -271,6 +274,14 @@
 
     const nome  = document.getElementById('nome').value.trim();
     const email = document.getElementById('email').value.trim().toLowerCase();
+
+    // Bypass para a proprietária do curso
+    if (ADMIN_EMAILS.includes(email)) {
+      localStorage.setItem('diva_nome_curso', nome);
+      localStorage.setItem('diva_email_curso', email);
+      window.location.href = 'area-membros-rg.html';
+      return;
+    }
 
     try {
       const res  = await fetch(SCRIPT_URL + '?action=check_paid&email=' + encodeURIComponent(email));
