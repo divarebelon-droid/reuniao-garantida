@@ -129,7 +129,7 @@
     .banner-content { position:relative; z-index:2; padding:40px 48px; }
     .banner-label { font-size:9px; font-weight:700; letter-spacing:0.24em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:flex; align-items:center; gap:8px; }
     .banner-label::before { content:''; width:24px; height:1px; background:var(--gold); }
-    .banner-title { font-size:clamp(26px,3vw,38px); font-weight:900; letter-spacing:-0.025em; color:var(--limestone); margin-bottom:12px; }
+    .banner-title { font-size:clamp(28px,3.2vw,44px); font-weight:900; letter-spacing:-0.03em; line-height:1.05; background:linear-gradient(135deg, #dcdad9 0%, rgba(220,218,217,0.7) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:12px; }
     .banner-sub { font-size:14px; color:var(--gravel); max-width:440px; line-height:1.65; }
 
     /* Featured lesson */
@@ -289,6 +289,9 @@
     <button class="sb-item" onclick="selectLesson('p2a3',this)">
       <span class="sb-num">3</span> Na prática
     </button>
+    <button class="sb-item" onclick="selectLesson('p2a4',this)">
+      <span class="sb-num">★</span> Bônus Especial
+    </button>
 
     <div class="sb-section" style="margin-top:8px;">✦ Bônus: IA</div>
     <button class="sb-item" onclick="selectLesson('p3a1',this)">
@@ -391,7 +394,7 @@
         <div class="mod-title">Garantindo a Reunião</div>
         <div class="mod-desc">Como deve ser a reunião, como fazer o lead aparecer e como garantir que a reunião aconteça na prática.</div>
         <div class="mod-footer">
-          <div class="mod-dur"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#9fa4a2" stroke-width="1.2"/><path d="M6 3v3l2 1.5" stroke="#9fa4a2" stroke-width="1.2" stroke-linecap="round"/></svg>3 aulas</div>
+          <div class="mod-dur"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#9fa4a2" stroke-width="1.2"/><path d="M6 3v3l2 1.5" stroke="#9fa4a2" stroke-width="1.2" stroke-linecap="round"/></svg>4 aulas</div>
           <span class="mod-arrow">→</span>
         </div>
       </div>
@@ -475,6 +478,7 @@
     p2a1: { num:'Reunião · Aula 01',    title:'Como dizem que é e como deve ser',                        video:'', desc:'Desmistifique o que realmente funciona em uma reunião de vendas B2B: quebre os mitos e aprenda como deve ser na prática.' },
     p2a2: { num:'Reunião · Aula 02',    title:'Como fazer o lead aparecer na reunião',                   video:'', desc:'As estratégias comprovadas para garantir que o lead confirme, apareça e esteja preparado para a conversa — sem no-show.' },
     p2a3: { num:'Reunião · Aula 03',    title:'Garantindo que a reunião aconteça na prática',            video:'', desc:'O passo a passo completo para blindar sua reunião contra cancelamentos, dar continuidade e avançar para o fechamento.' },
+    p2a4: { num:'Reunião · Bônus',     title:'Bônus Especial',                                           video:'https://www.youtube.com/embed/1mNIsHHR8-4?rel=0&autoplay=1', desc:'Conteúdo bônus exclusivo do módulo Garantindo a Reunião para aprofundar ainda mais sua prática e seus resultados.' },
     p3a1: { num:'IA para Prospecção · Aula 01', title:'Como usar a IA para reduzir o trabalho de prospecção', video:'', desc:'Aprenda a usar inteligência artificial para automatizar pesquisa, personalizar abordagens e prospectar com muito mais velocidade.' },
     p3a2: { num:'IA para Prospecção · Materiais', title:'Materiais usados para treinar a IA',           video:'', desc:'Acesso aos materiais, prompts e documentos usados para treinar a IA e deixá-la pronta para prospectar no seu nicho.' }
   };
