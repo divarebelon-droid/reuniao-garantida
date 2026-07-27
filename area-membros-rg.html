@@ -316,6 +316,23 @@
       <span class="sb-num">★</span> Bônus Especial
     </button>
 
+    <div class="sb-section" style="margin-top:8px;">CRM</div>
+    <button class="sb-item" onclick="selectLesson('crm1',this)">
+      <span class="sb-num">1</span> Lista de prospecção — Pt. 1
+    </button>
+    <button class="sb-item" onclick="selectLesson('crm2',this)">
+      <span class="sb-num">2</span> Lista de prospecção — Pt. 2
+    </button>
+    <button class="sb-item" onclick="selectLesson('crm3',this)">
+      <span class="sb-num">3</span> Planilha de prospecção
+    </button>
+    <button class="sb-item" onclick="selectLesson('crm4',this)">
+      <span class="sb-num">4</span> Criar conta no Clickup
+    </button>
+    <button class="sb-item" onclick="selectLesson('crm5',this)">
+      <span class="sb-num">5</span> Como pegar o CRM
+    </button>
+
     <div class="sb-section" style="margin-top:8px;">✦ Bônus: IA</div>
     <button class="sb-item" onclick="selectLesson('p3a1',this)">
       <span class="sb-num">1</span> Usando a IA
@@ -422,6 +439,17 @@
         </div>
       </div>
 
+      <!-- CRM -->
+      <div class="mod-card" onclick="selectLesson('crm1',null);openLesson('crm1')">
+        <div class="mod-top"><span class="mod-num">03</span></div>
+        <div class="mod-title">CRM</div>
+        <div class="mod-desc">Como montar sua lista de prospecção, usar a planilha, criar seu CRM no Clickup e acompanhar seus leads na prática.</div>
+        <div class="mod-footer">
+          <div class="mod-dur"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#9fa4a2" stroke-width="1.2"/><path d="M6 3v3l2 1.5" stroke="#9fa4a2" stroke-width="1.2" stroke-linecap="round"/></svg>5 aulas</div>
+          <span class="mod-arrow">→</span>
+        </div>
+      </div>
+
       <!-- IA PARA PROSPECÇÃO -->
       <div class="mod-card" onclick="selectLesson('p3a1',null);openLesson('p3a1')" style="border-color:rgba(201,169,110,0.2);background:linear-gradient(135deg,rgba(201,169,110,0.05) 0%,var(--surface2) 100%);">
         <div class="mod-top"><span class="mod-num" style="color:#c9a96e;background:rgba(201,169,110,0.12);border-color:rgba(201,169,110,0.25);">✦</span></div>
@@ -510,6 +538,11 @@
     p2a2: { num:'Reunião · Aula 02',    title:'Como deve ser',                                           video:'https://www.youtube.com/embed/3JadTYEskig?rel=0&autoplay=1', desc:'Agora que você sabe o que não funciona, aprenda exatamente como conduzir uma reunião B2B de forma que gere resultado real.' },
     p2a3: { num:'Reunião · Aula 03',    title:'Garantir a presença na reunião',                          video:'https://www.youtube.com/embed/gELCi_hv84U?rel=0&autoplay=1', desc:'O passo a passo para fazer o lead confirmar, aparecer e estar presente de verdade — eliminando os no-shows.' },
     p2a4: { num:'Reunião · Bônus',     title:'O que fazer antes de prospectar',                          video:'https://www.youtube.com/embed/1mNIsHHR8-4?rel=0&autoplay=1', desc:'Revisão prática do que você precisa preparar antes de começar a prospectar — conteúdo de apoio para o módulo Garantindo a Reunião.' },
+    crm1: { num:'CRM · Aula 01', title:'Como monto lista de prospecção — Parte 1', video:'https://www.youtube.com/embed/-RoVsojpZH0?rel=0&autoplay=1', desc:'Passo a passo para montar sua lista de prospecção do zero: onde encontrar os leads certos e como organizá-los antes de começar a prospectar.' },
+    crm2: { num:'CRM · Aula 02', title:'Como monto lista de prospecção — Parte 2', video:'https://www.youtube.com/embed/FHumBzq-G3c?rel=0&autoplay=1', desc:'Continuação: refinamento da lista, critérios de qualificação e como garantir que você está prospectando os leads com maior potencial de fechamento.' },
+    crm3: { num:'CRM · Aula 03', title:'Planilha de prospecção',                   video:'https://www.youtube.com/embed/lTBoa3e5EgE?rel=0&autoplay=1', desc:'Apresentação da planilha de prospecção: como preencher, o que acompanhar e como usar para manter o controle do seu pipeline.' },
+    crm4: { num:'CRM · Aula 04', title:'Criar conta no Clickup',                   video:'https://www.youtube.com/embed/hh9QVbXs5fg?rel=0&autoplay=1', desc:'Como criar sua conta no Clickup e configurar o ambiente para usar como CRM de prospecção.' },
+    crm5: { num:'CRM · Aula 05', title:'Como pegar o CRM',                         video:'https://www.youtube.com/embed/Wa7TU8OzoOY?rel=0&autoplay=1', desc:'Como acessar e duplicar o modelo de CRM pronto para usar — e começar a registrar suas prospecções imediatamente.' },
     p3a1: { num:'IA para Prospecção · Aula 01', title:'Usando a IA',                                         video:'https://www.youtube.com/embed/P_suCjXF7Yc?rel=0&autoplay=1', desc:'Aprenda a usar inteligência artificial para automatizar pesquisa, personalizar abordagens e prospectar com muito mais velocidade.' },
     p3a2: { num:'IA para Prospecção · Materiais', title:'Materiais usados para treinar a IA',           video:'', desc:'Acesso aos materiais, prompts e documentos usados para treinar a IA e deixá-la pronta para prospectar no seu nicho.' }
   };
@@ -523,7 +556,7 @@
       document.querySelectorAll('.sb-item').forEach(el => el.classList.remove('active'));
       btn.classList.add('active');
     }
-    const mod = id.startsWith('p1') ? 'Prospecção' : id.startsWith('p2') ? 'Garantindo a Reunião' : 'IA para Prospecção';
+    const mod = id.startsWith('p1') ? 'Prospecção' : id.startsWith('p2') ? 'Garantindo a Reunião' : id.startsWith('crm') ? 'CRM' : 'IA para Prospecção';
     document.getElementById('topbar-title').textContent = mod;
     document.getElementById('feat-num').textContent   = l.num;
     document.getElementById('feat-title').textContent = l.title;
