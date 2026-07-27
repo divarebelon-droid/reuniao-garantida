@@ -340,6 +340,9 @@
     <button class="sb-item" onclick="selectLesson('p3a2',this)">
       <span class="sb-num">★</span> Perguntas para a IA
     </button>
+    <button class="sb-item" onclick="selectLesson('p3a3',this);openLesson('p3a3')">
+      <span class="sb-num">🏁</span> Aula Final
+    </button>
 
     <div class="sb-section" style="margin-top:8px;">📎 Materiais</div>
     <button class="sb-item" onclick="selectLesson('mat1',this);openLesson('mat1')">
@@ -347,6 +350,9 @@
     </button>
     <button class="sb-item" onclick="selectLesson('mat2',this);openLesson('mat2')">
       <span class="sb-num">↓</span> CRM no ClickUp
+    </button>
+    <button class="sb-item" onclick="selectLesson('mat3',this);openLesson('mat3')">
+      <span class="sb-num">↓</span> Planilha de Controle de Prospecção
     </button>
   </nav>
 
@@ -503,7 +509,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <div class="video-cinema"><iframe id="modal-video" src="" title="Aula" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div id="video-cinema-wrap" class="video-cinema"><iframe id="modal-video" src="" title="Aula" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
       <div id="modal-coming" style="display:none;text-align:center;padding:48px 24px;color:var(--gravel);">
         <div style="width:64px;height:64px;border-radius:50%;background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.25);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 4v10M14 18v2" stroke="#c9a96e" stroke-width="2" stroke-linecap="round"/><circle cx="14" cy="14" r="12" stroke="#c9a96e" stroke-width="1.5"/></svg>
@@ -555,7 +561,7 @@
     p1a3: { num:'Prospecção · Aula 04', title:'Exemplo prático de prospecção',                           video:'https://www.youtube.com/embed/aXRzUrcP-84?rel=0&autoplay=1', desc:'Veja na prática como uma abordagem de prospecção funciona do início ao fim, com exemplos reais que geram reuniões qualificadas.' },
     p2a1: { num:'Reunião · Aula 01',    title:'Como dizem que é',                                        video:'https://www.youtube.com/embed/ejOZ53NXh6k?rel=0&autoplay=1', desc:'Desmistifique o que realmente funciona em uma reunião de vendas B2B: quebre os mitos e entenda o que está errado na abordagem convencional.' },
     p2a2: { num:'Reunião · Aula 02',    title:'Como deve ser',                                           video:'https://www.youtube.com/embed/3JadTYEskig?rel=0&autoplay=1', desc:'Agora que você sabe o que não funciona, aprenda exatamente como conduzir uma reunião B2B de forma que gere resultado real.' },
-    p2a3: { num:'Reunião · Aula 03',    title:'Garantir a presença na reunião',                          video:'https://www.youtube.com/embed/gELCi_hv84U?rel=0&autoplay=1', desc:'O passo a passo para fazer o lead confirmar, aparecer e estar presente de verdade — eliminando os no-shows.' },
+    p2a3: { num:'Reunião · Aula 03',    title:'Garantir a presença na reunião',                          video:'https://www.youtube.com/embed/QwUB9XcAQ5I?rel=0&autoplay=1', desc:'O passo a passo para fazer o lead confirmar, aparecer e estar presente de verdade — eliminando os no-shows.' },
     p2a4: { num:'Reunião · Bônus',     title:'O que fazer antes de prospectar',                          video:'https://www.youtube.com/embed/1mNIsHHR8-4?rel=0&autoplay=1', desc:'Revisão prática do que você precisa preparar antes de começar a prospectar — conteúdo de apoio para o módulo Garantindo a Reunião.' },
     crm1: { num:'CRM · Aula 01', title:'Como monto lista de prospecção — Parte 1', video:'https://www.youtube.com/embed/-RoVsojpZH0?rel=0&autoplay=1', desc:'Passo a passo para montar sua lista de prospecção do zero: onde encontrar os leads certos e como organizá-los antes de começar a prospectar.' },
     crm2: { num:'CRM · Aula 02', title:'Como monto lista de prospecção — Parte 2', video:'https://www.youtube.com/embed/FHumBzq-G3c?rel=0&autoplay=1', desc:'Continuação: refinamento da lista, critérios de qualificação e como garantir que você está prospectando os leads com maior potencial de fechamento.' },
@@ -564,7 +570,9 @@
     crm5: { num:'CRM · Aula 05', title:'Como pegar o CRM',                         video:'https://www.youtube.com/embed/Wa7TU8OzoOY?rel=0&autoplay=1', desc:'Como acessar e duplicar o modelo de CRM pronto para usar — e começar a registrar suas prospecções imediatamente.' },
     mat1: { num:'Materiais', title:'Planilha de Prospecção', type:'link', url:'https://divarebelon-droid.github.io/reuniao-garantida/PROSPECT-F2.xlsx', desc:'Clique para baixar a planilha de prospecção.' },
     mat2: { num:'Materiais', title:'CRM no ClickUp',          type:'link', url:'https://app.clickup.com/template/subcategory/t-901326451642/4216da99eb2184a9c0', desc:'Clique para acessar o modelo de CRM no ClickUp.' },
+    mat3: { num:'Materiais', title:'Planilha de Controle de Prospecção', type:'link', url:'https://divarebelon-droid.github.io/reuniao-garantida/Acompanhamento%20de%20Prospec%C3%A7%C3%A3o.xlsx', desc:'Clique para baixar a planilha de controle de prospecção.' },
     p3a1: { num:'IA para Prospecção · Aula 01', title:'Usando a IA',                                         video:'https://www.youtube.com/embed/P_suCjXF7Yc?rel=0&autoplay=1', desc:'Aprenda a usar inteligência artificial para automatizar pesquisa, personalizar abordagens e prospectar com muito mais velocidade.' },
+    p3a3: { num:'Aula Final', title:'Aula Final', video:'https://www.youtube.com/embed/JCBZooFhGvk?rel=0&autoplay=1', desc:'A última aula do curso — aproveite tudo que aprendeu e coloque em prática.' },
     p3a2: { num:'IA para Prospecção · Aula 02', title:'Perguntas para responder para a IA', video:'', textOnly:true, desc:'Responda estas perguntas ao usar a IA para criar o planejamento do seu cliente:<br><br><strong>1.</strong> Qual o objetivo principal que você deseja alcançar com esse planejamento?<br><br><strong>2.</strong> Quais as principais áreas ou serviços que são oferecidos pela empresa do seu cliente?<br><br><strong>3.</strong> A empresa do seu cliente oferece serviços ou produtos que são complementares ao produto principal?<br><br><strong>4.</strong> Qual é o perfil do cliente ideal do seu cliente?<br><br><strong>5.</strong> Qual é o perfil do seu cliente — ele é uma pequena empresa de até 50 funcionários, ou uma média empresa, e assim por diante?<br><br><strong>6.</strong> No caso você vendeu pra ele apenas o planejamento, ou você tem um contrato de recorrência com ele?<br><br><strong>7.</strong> Como a empresa do seu cliente especifica o serviço — por hora, por produto, um pacote fechado ou uma mensalidade?<br><br><strong>8.</strong> Qual é o canal principal para aquisição de novos clientes da empresa dele?<br><br><strong>9.</strong> Qual é o principal diferencial da empresa dele em relação aos concorrentes?<br><br><strong>10.</strong> Qual o nível de maturidade do seu cliente referente a marketing?<br><br><strong>11.</strong> Qual o nível de maturidade do seu cliente em relação a processo comercial?' }
   };
 
@@ -577,7 +585,7 @@
       document.querySelectorAll('.sb-item').forEach(el => el.classList.remove('active'));
       btn.classList.add('active');
     }
-    const mod = id.startsWith('p1') ? 'Prospecção' : id.startsWith('p2') ? 'Garantindo a Reunião' : id.startsWith('crm') ? 'CRM' : id.startsWith('mat') ? 'Materiais' : 'IA para Prospecção';
+    const mod = id.startsWith('p1') ? 'Prospecção' : id.startsWith('p2') ? 'Garantindo a Reunião' : id.startsWith('crm') ? 'CRM' : id.startsWith('mat') ? 'Materiais' : id === 'p3a3' ? 'Aula Final' : 'IA para Prospecção';
     document.getElementById('topbar-title').textContent = mod;
     document.getElementById('feat-num').textContent   = l.num;
     document.getElementById('feat-title').textContent = l.title;
@@ -592,12 +600,13 @@
     document.getElementById('modal-desc').innerHTML = l.desc;
     const iframe = document.getElementById('modal-video');
     const coming = document.getElementById('modal-coming');
+    const cinema = document.getElementById('video-cinema-wrap');
     if (l.video) {
-      iframe.src = l.video; iframe.style.display = 'block'; coming.style.display = 'none';
+      iframe.src = l.video; iframe.style.display = 'block'; coming.style.display = 'none'; cinema.style.display = 'block';
     } else if (l.textOnly) {
-      iframe.src = ''; iframe.style.display = 'none'; coming.style.display = 'none';
+      iframe.src = ''; iframe.style.display = 'none'; coming.style.display = 'none'; cinema.style.display = 'none';
     } else {
-      iframe.src = ''; iframe.style.display = 'none'; coming.style.display = 'block';
+      iframe.src = ''; iframe.style.display = 'none'; coming.style.display = 'block'; cinema.style.display = 'none';
     }
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
