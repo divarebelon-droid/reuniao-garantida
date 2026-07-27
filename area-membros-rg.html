@@ -340,6 +340,14 @@
     <button class="sb-item" onclick="selectLesson('p3a2',this)">
       <span class="sb-num">★</span> Perguntas para a IA
     </button>
+
+    <div class="sb-section" style="margin-top:8px;">📎 Materiais</div>
+    <button class="sb-item" onclick="selectLesson('mat1',this);openLesson('mat1')">
+      <span class="sb-num">↓</span> Planilha de Prospecção
+    </button>
+    <button class="sb-item" onclick="selectLesson('mat2',this);openLesson('mat2')">
+      <span class="sb-num">↓</span> CRM no ClickUp
+    </button>
   </nav>
 
   <div class="sb-footer">
@@ -461,6 +469,17 @@
         </div>
       </div>
 
+      <!-- MATERIAIS -->
+      <div class="mod-card" onclick="openLesson('mat1')" style="border-color:rgba(220,218,217,0.12);background:linear-gradient(135deg,rgba(220,218,217,0.04) 0%,var(--surface2) 100%);">
+        <div class="mod-top"><span class="mod-num" style="color:var(--gravel);background:rgba(220,218,217,0.06);border-color:rgba(220,218,217,0.12);">📎</span></div>
+        <div class="mod-title">Materiais</div>
+        <div class="mod-desc">Todos os materiais do curso: planilha de prospecção e modelo de CRM no ClickUp para usar na prática.</div>
+        <div class="mod-footer">
+          <div class="mod-dur"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#9fa4a2" stroke-width="1.2"/><path d="M6 3v3l2 1.5" stroke="#9fa4a2" stroke-width="1.2" stroke-linecap="round"/></svg>2 arquivos para download</div>
+          <span class="mod-arrow">→</span>
+        </div>
+      </div>
+
     </div>
 
     <div class="cta-bar">
@@ -543,6 +562,8 @@
     crm3: { num:'CRM · Aula 03', title:'Planilha de prospecção',                   video:'https://www.youtube.com/embed/lTBoa3e5EgE?rel=0&autoplay=1', desc:'Apresentação da planilha de prospecção: como preencher, o que acompanhar e como usar para manter o controle do seu pipeline.' },
     crm4: { num:'CRM · Aula 04', title:'Criar conta no Clickup',                   video:'https://www.youtube.com/embed/hh9QVbXs5fg?rel=0&autoplay=1', desc:'Como criar sua conta no Clickup e configurar o ambiente para usar como CRM de prospecção.' },
     crm5: { num:'CRM · Aula 05', title:'Como pegar o CRM',                         video:'https://www.youtube.com/embed/Wa7TU8OzoOY?rel=0&autoplay=1', desc:'Como acessar e duplicar o modelo de CRM pronto para usar — e começar a registrar suas prospecções imediatamente.' },
+    mat1: { num:'Materiais', title:'Planilha de Prospecção', type:'link', url:'https://divarebelon-droid.github.io/reuniao-garantida/PROSPECT-F2.xlsx', desc:'Clique para baixar a planilha de prospecção.' },
+    mat2: { num:'Materiais', title:'CRM no ClickUp',          type:'link', url:'https://app.clickup.com/template/subcategory/t-901326451642/4216da99eb2184a9c0', desc:'Clique para acessar o modelo de CRM no ClickUp.' },
     p3a1: { num:'IA para Prospecção · Aula 01', title:'Usando a IA',                                         video:'https://www.youtube.com/embed/P_suCjXF7Yc?rel=0&autoplay=1', desc:'Aprenda a usar inteligência artificial para automatizar pesquisa, personalizar abordagens e prospectar com muito mais velocidade.' },
     p3a2: { num:'IA para Prospecção · Aula 02', title:'Perguntas para responder para a IA', video:'', textOnly:true, desc:'Responda estas perguntas ao usar a IA para criar o planejamento do seu cliente:<br><br><strong>1.</strong> Qual o objetivo principal que você deseja alcançar com esse planejamento?<br><br><strong>2.</strong> Quais as principais áreas ou serviços que são oferecidos pela empresa do seu cliente?<br><br><strong>3.</strong> A empresa do seu cliente oferece serviços ou produtos que são complementares ao produto principal?<br><br><strong>4.</strong> Qual é o perfil do cliente ideal do seu cliente?<br><br><strong>5.</strong> Qual é o perfil do seu cliente — ele é uma pequena empresa de até 50 funcionários, ou uma média empresa, e assim por diante?<br><br><strong>6.</strong> No caso você vendeu pra ele apenas o planejamento, ou você tem um contrato de recorrência com ele?<br><br><strong>7.</strong> Como a empresa do seu cliente especifica o serviço — por hora, por produto, um pacote fechado ou uma mensalidade?<br><br><strong>8.</strong> Qual é o canal principal para aquisição de novos clientes da empresa dele?<br><br><strong>9.</strong> Qual é o principal diferencial da empresa dele em relação aos concorrentes?<br><br><strong>10.</strong> Qual o nível de maturidade do seu cliente referente a marketing?<br><br><strong>11.</strong> Qual o nível de maturidade do seu cliente em relação a processo comercial?' }
   };
@@ -556,7 +577,7 @@
       document.querySelectorAll('.sb-item').forEach(el => el.classList.remove('active'));
       btn.classList.add('active');
     }
-    const mod = id.startsWith('p1') ? 'Prospecção' : id.startsWith('p2') ? 'Garantindo a Reunião' : id.startsWith('crm') ? 'CRM' : 'IA para Prospecção';
+    const mod = id.startsWith('p1') ? 'Prospecção' : id.startsWith('p2') ? 'Garantindo a Reunião' : id.startsWith('crm') ? 'CRM' : id.startsWith('mat') ? 'Materiais' : 'IA para Prospecção';
     document.getElementById('topbar-title').textContent = mod;
     document.getElementById('feat-num').textContent   = l.num;
     document.getElementById('feat-title').textContent = l.title;
@@ -566,6 +587,7 @@
 
   function openLesson(id) {
     const l = lessons[id]; if (!l) return;
+    if (l.type === 'link') { window.open(l.url, '_blank'); return; }
     document.getElementById('modal-title').textContent = l.title;
     document.getElementById('modal-desc').innerHTML = l.desc;
     const iframe = document.getElementById('modal-video');
