@@ -338,7 +338,7 @@
       <span class="sb-num">1</span> Usando a IA
     </button>
     <button class="sb-item" onclick="selectLesson('p3a2',this)">
-      <span class="sb-num">★</span> Materiais para IA
+      <span class="sb-num">★</span> Perguntas para a IA
     </button>
   </nav>
 
@@ -544,7 +544,7 @@
     crm4: { num:'CRM · Aula 04', title:'Criar conta no Clickup',                   video:'https://www.youtube.com/embed/hh9QVbXs5fg?rel=0&autoplay=1', desc:'Como criar sua conta no Clickup e configurar o ambiente para usar como CRM de prospecção.' },
     crm5: { num:'CRM · Aula 05', title:'Como pegar o CRM',                         video:'https://www.youtube.com/embed/Wa7TU8OzoOY?rel=0&autoplay=1', desc:'Como acessar e duplicar o modelo de CRM pronto para usar — e começar a registrar suas prospecções imediatamente.' },
     p3a1: { num:'IA para Prospecção · Aula 01', title:'Usando a IA',                                         video:'https://www.youtube.com/embed/P_suCjXF7Yc?rel=0&autoplay=1', desc:'Aprenda a usar inteligência artificial para automatizar pesquisa, personalizar abordagens e prospectar com muito mais velocidade.' },
-    p3a2: { num:'IA para Prospecção · Materiais', title:'Materiais usados para treinar a IA',           video:'', desc:'Acesso aos materiais, prompts e documentos usados para treinar a IA e deixá-la pronta para prospectar no seu nicho.' }
+    p3a2: { num:'IA para Prospecção · Aula 02', title:'Perguntas para responder para a IA', video:'', textOnly:true, desc:'Responda estas perguntas ao usar a IA para criar o planejamento do seu cliente:<br><br><strong>1.</strong> Qual o objetivo principal que você deseja alcançar com esse planejamento?<br><br><strong>2.</strong> Quais as principais áreas ou serviços que são oferecidos pela empresa do seu cliente?<br><br><strong>3.</strong> A empresa do seu cliente oferece serviços ou produtos que são complementares ao produto principal?<br><br><strong>4.</strong> Qual é o perfil do cliente ideal do seu cliente?<br><br><strong>5.</strong> Qual é o perfil do seu cliente — ele é uma pequena empresa de até 50 funcionários, ou uma média empresa, e assim por diante?<br><br><strong>6.</strong> No caso você vendeu pra ele apenas o planejamento, ou você tem um contrato de recorrência com ele?<br><br><strong>7.</strong> Como a empresa do seu cliente especifica o serviço — por hora, por produto, um pacote fechado ou uma mensalidade?<br><br><strong>8.</strong> Qual é o canal principal para aquisição de novos clientes da empresa dele?<br><br><strong>9.</strong> Qual é o principal diferencial da empresa dele em relação aos concorrentes?<br><br><strong>10.</strong> Qual o nível de maturidade do seu cliente referente a marketing?<br><br><strong>11.</strong> Qual o nível de maturidade do seu cliente em relação a processo comercial?' }
   };
 
   let currentLessonId = 'p1a1';
@@ -567,11 +567,13 @@
   function openLesson(id) {
     const l = lessons[id]; if (!l) return;
     document.getElementById('modal-title').textContent = l.title;
-    document.getElementById('modal-desc').textContent  = l.desc;
+    document.getElementById('modal-desc').innerHTML = l.desc;
     const iframe = document.getElementById('modal-video');
     const coming = document.getElementById('modal-coming');
     if (l.video) {
       iframe.src = l.video; iframe.style.display = 'block'; coming.style.display = 'none';
+    } else if (l.textOnly) {
+      iframe.src = ''; iframe.style.display = 'none'; coming.style.display = 'none';
     } else {
       iframe.src = ''; iframe.style.display = 'none'; coming.style.display = 'block';
     }
