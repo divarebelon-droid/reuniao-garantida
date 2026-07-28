@@ -550,12 +550,26 @@
 </div>
 
 <script>
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyKVRUIdSz7KU9hwoscAHKlODLNe0fUfGn74eQJmIRaKld-7UoiuZze-cahURaqM1YvBQ/exec';
+  const SCRIPT_URL  = 'https://script.google.com/macros/s/AKfycbyKVRUIdSz7KU9hwoscAHKlODLNe0fUfGn74eQJmIRaKld-7UoiuZze-cahURaqM1YvBQ/exec';
+  const DIVA_API    = 'COLE_URL_DO_APPS_SCRIPT_AQUI'; // substitua após deploy do Apps Script
 
   // ── AUTH ──
   const nome  = localStorage.getItem('diva_nome')  || '';
   const email = localStorage.getItem('diva_email') || '';
   if (!email) { window.location.href = 'comunidade.html'; }
+
+  // ── VERIFICAR SE JÁ PAGOU (auto-redireciona para área de membros) ──
+  if (email && DIVA_API !== 'COLE_URL_DO_APPS_SCRIPT_AQUI') {
+    fetch(DIVA_API + '?action=check&email=' + encodeURIComponent(email))
+      .then(r => r.json())
+      .then(d => {
+        if (d.paid) {
+          localStorage.setItem('diva_email_curso', email);
+          localStorage.setItem('diva_nome_curso', nome);
+          window.location.href = 'area-membros-rg.html';
+        }
+      }).catch(() => {});
+  }
 
   // ── USER INFO ──
   const firstName = nome.split(' ')[0] || 'membro';
@@ -627,8 +641,26 @@
       localStorage.setItem('diva_nome_curso', nome);
       window.location.href = 'area-membros-rg.html'; return;
     }
-    document.getElementById('upg-overlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
+    if (DIVA_API !== 'COLE_URL_DO_APPS_SCRIPT_AQUI') {
+      fetch(DIVA_API + '?action=check&email=' + encodeURIComponent(email))
+        .then(r => r.json())
+        .then(d => {
+          if (d.paid) {
+            localStorage.setItem('diva_email_curso', email);
+            localStorage.setItem('diva_nome_curso', nome);
+            window.location.href = 'area-membros-rg.html';
+          } else {
+            document.getElementById('upg-overlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+          }
+        }).catch(() => {
+          document.getElementById('upg-overlay').classList.add('open');
+          document.body.style.overflow = 'hidden';
+        });
+    } else {
+      document.getElementById('upg-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
   }
   function closeUpgrade() {
     document.getElementById('upg-overlay').classList.remove('open');

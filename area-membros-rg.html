@@ -525,9 +525,59 @@
 <script>
   // ══ AUTH ══
   const ADMIN_EMAILS = ['divarebel.on@gmail.com'];
+  const DIVA_API = 'COLE_URL_DO_APPS_SCRIPT_AQUI'; // substitua após deploy do Apps Script
   const nome  = localStorage.getItem('diva_nome_curso') || localStorage.getItem('diva_nome') || '';
   const email = localStorage.getItem('diva_email_curso') || localStorage.getItem('diva_email') || '';
   if (!email) { window.location.href = 'cursos.html'; }
+
+  // Aulas liberadas apenas após 7 dias do pagamento
+  const DRIP_LESSONS = new Set(['crm1','crm2','crm3','crm4','crm5','p3a1','p3a2','p3a3','mat1','mat2','mat3']);
+  let lockedLessons  = new Set(); // preenchido pelo checkAccess
+
+  function parseDateBR(str) {
+    if (!str) return null;
+    // Aceita dd/MM/yyyy ou yyyy-MM-dd
+    const s = String(str).trim();
+    if (s.includes('/')) {
+      const [d,m,y] = s.split('/');
+      return new Date(+y, +m-1, +d);
+    }
+    return new Date(s);
+  }
+
+  function applyDrip(paymentDate) {
+    const pay = parseDateBR(paymentDate);
+    if (!pay || isNaN(pay)) return;
+    const days = Math.floor((Date.now() - pay.getTime()) / 86400000);
+    if (days >= 7) return; // acesso total
+    const left = 7 - days;
+    lockedLessons = new Set(DRIP_LESSONS);
+    // Adiciona aviso visual nos botões bloqueados
+    document.querySelectorAll('.sb-item').forEach(btn => {
+      const match = btn.getAttribute('onclick') || '';
+      const id = (match.match(/'([^']+)'/) || [])[1];
+      if (id && lockedLessons.has(id)) {
+        btn.setAttribute('data-locked', '1');
+        btn.title = `Disponível em ${left} dia${left !== 1 ? 's' : ''}`;
+        btn.style.opacity = '0.45';
+        btn.style.cursor  = 'default';
+      }
+    });
+  }
+
+  function checkAccess() {
+    if (ADMIN_EMAILS.includes(email)) return; // admin tem acesso total
+    if (DIVA_API === 'COLE_URL_DO_APPS_SCRIPT_AQUI') return; // API não configurada ainda
+    fetch(DIVA_API + '?action=check&email=' + encodeURIComponent(email))
+      .then(r => r.json())
+      .then(d => {
+        if (!d.paid) { window.location.href = 'membros.html'; return; }
+        applyDrip(d.paymentDate);
+        fetch(DIVA_API + '?action=access&email=' + encodeURIComponent(email), {mode:'no-cors'}).catch(()=>{});
+      })
+      .catch(() => {}); // fail-open: se a API falhar, não bloqueia
+  }
+  checkAccess();
 
   // ══ USER INFO ══
   document.getElementById('sb-avatar').textContent   = nome.charAt(0).toUpperCase() || '?';
@@ -595,6 +645,12 @@
 
   function openLesson(id) {
     const l = lessons[id]; if (!l) return;
+    if (lockedLessons.has(id)) {
+      const btn = document.querySelector(`[data-locked="1"][onclick*="'${id}'"]`);
+      const dias = btn ? btn.title : 'alguns dias';
+      alert('🔒 ' + (btn ? btn.title : 'Esta aula estará disponível em breve.'));
+      return;
+    }
     if (l.type === 'link') { window.open(l.url, '_blank'); return; }
     document.getElementById('modal-title').textContent = l.title;
     document.getElementById('modal-desc').innerHTML = l.desc;

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pagamento Confirmado — Reunião Garantida</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#0d0d0d; color:#f0ede8; font-family:'Segoe UI',sans-serif;
+         display:flex; align-items:center; justify-content:center; min-height:100vh; padding:20px; }
+  .card { background:#1a1a1a; border:1px solid rgba(201,169,110,0.25); border-radius:16px;
+          padding:48px 40px; max-width:460px; width:100%; text-align:center; }
+  .icon { font-size:56px; margin-bottom:20px; }
+  h1 { font-size:26px; font-weight:700; color:#c9a96e; margin-bottom:12px; }
+  p  { font-size:15px; color:#a09890; line-height:1.6; margin-bottom:8px; }
+  .btn { display:inline-block; margin-top:28px; padding:14px 32px; background:#c9a96e;
+         color:#0d0d0d; font-weight:700; font-size:15px; border-radius:8px;
+         text-decoration:none; cursor:pointer; border:none; }
+  .spinner { font-size:13px; color:#555; margin-top:16px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="icon">🎉</div>
+  <h1>Pagamento confirmado!</h1>
+  <p>Bem-vinda ao Método Reunião Garantida.</p>
+  <p>Seu acesso está sendo liberado...</p>
+  <div class="spinner" id="status">Aguarde um instante...</div>
+  <button class="btn" id="btn-entrar" style="display:none" onclick="entrar()">Acessar o curso →</button>
+</div>
+
+<script>
+  const DIVA_API = 'COLE_URL_DO_APPS_SCRIPT_AQUI';
+
+  const nome  = localStorage.getItem('diva_nome')  || localStorage.getItem('diva_nome_curso')  || '';
+  const email = localStorage.getItem('diva_email') || localStorage.getItem('diva_email_curso') || '';
+
+  function entrar() {
+    localStorage.setItem('diva_email_curso', email);
+    localStorage.setItem('diva_nome_curso', nome);
+    window.location.href = 'area-membros-rg.html';
+  }
+
+  function mostrarBotao(msg) {
+    document.getElementById('status').textContent = msg;
+    document.getElementById('btn-entrar').style.display = 'inline-block';
+  }
+
+  if (!email || DIVA_API === 'COLE_URL_DO_APPS_SCRIPT_AQUI') {
+    mostrarBotao('Clique abaixo para acessar o curso.');
+  } else {
+    fetch(DIVA_API + '?action=register&email=' + encodeURIComponent(email) +
+                     '&nome='  + encodeURIComponent(nome) +
+                     '&valor=47.90')
+      .then(r => r.json())
+      .then(() => mostrarBotao('Acesso liberado! Clique abaixo.'))
+      .catch(()  => mostrarBotao('Clique abaixo para acessar o curso.'));
+  }
+</script>
+</body>
+</html>
