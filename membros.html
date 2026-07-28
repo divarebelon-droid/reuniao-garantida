@@ -551,7 +551,7 @@
 
 <script>
   const SCRIPT_URL  = 'https://script.google.com/macros/s/AKfycbyKVRUIdSz7KU9hwoscAHKlODLNe0fUfGn74eQJmIRaKld-7UoiuZze-cahURaqM1YvBQ/exec';
-  const DIVA_API    = 'COLE_URL_DO_APPS_SCRIPT_AQUI'; // substitua após deploy do Apps Script
+  const DIVA_API    = 'https://script.google.com/macros/s/AKfycbyGkvrNkBZFAlG0oHty3ncM-xjk0IjsAGhw_Mtueo8R2pawNrRmRNSCm1v4_jKXChbk/exec'; // substitua após deploy do Apps Script
 
   // ── AUTH ──
   const nome  = localStorage.getItem('diva_nome')  || '';
@@ -559,7 +559,7 @@
   if (!email) { window.location.href = 'comunidade.html'; }
 
   // ── VERIFICAR SE JÁ PAGOU (auto-redireciona para área de membros) ──
-  if (email && DIVA_API !== 'COLE_URL_DO_APPS_SCRIPT_AQUI') {
+  if (email && DIVA_API !== 'https://script.google.com/macros/s/AKfycbyGkvrNkBZFAlG0oHty3ncM-xjk0IjsAGhw_Mtueo8R2pawNrRmRNSCm1v4_jKXChbk/exec') {
     fetch(DIVA_API + '?action=check&email=' + encodeURIComponent(email))
       .then(r => r.json())
       .then(d => {
@@ -641,7 +641,7 @@
       localStorage.setItem('diva_nome_curso', nome);
       window.location.href = 'area-membros-rg.html'; return;
     }
-    if (DIVA_API !== 'COLE_URL_DO_APPS_SCRIPT_AQUI') {
+    if (DIVA_API !== 'https://script.google.com/macros/s/AKfycbyGkvrNkBZFAlG0oHty3ncM-xjk0IjsAGhw_Mtueo8R2pawNrRmRNSCm1v4_jKXChbk/exec') {
       fetch(DIVA_API + '?action=check&email=' + encodeURIComponent(email))
         .then(r => r.json())
         .then(d => {

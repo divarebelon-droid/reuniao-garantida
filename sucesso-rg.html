@@ -30,7 +30,7 @@
 </div>
 
 <script>
-  const DIVA_API = 'COLE_URL_DO_APPS_SCRIPT_AQUI';
+  const DIVA_API = 'https://script.google.com/macros/s/AKfycbyGkvrNkBZFAlG0oHty3ncM-xjk0IjsAGhw_Mtueo8R2pawNrRmRNSCm1v4_jKXChbk/exec';
 
   const nome  = localStorage.getItem('diva_nome')  || localStorage.getItem('diva_nome_curso')  || '';
   const email = localStorage.getItem('diva_email') || localStorage.getItem('diva_email_curso') || '';
@@ -46,7 +46,7 @@
     document.getElementById('btn-entrar').style.display = 'inline-block';
   }
 
-  if (!email || DIVA_API === 'COLE_URL_DO_APPS_SCRIPT_AQUI') {
+  if (!email || DIVA_API === 'https://script.google.com/macros/s/AKfycbyGkvrNkBZFAlG0oHty3ncM-xjk0IjsAGhw_Mtueo8R2pawNrRmRNSCm1v4_jKXChbk/exec') {
     mostrarBotao('Clique abaixo para acessar o curso.');
   } else {
     fetch(DIVA_API + '?action=register&email=' + encodeURIComponent(email) +
