@@ -30,7 +30,7 @@
 </div>
 
 <script>
-  const DIVA_API = 'https://script.google.com/macros/s/AKfycbyGkvrNkBZFAlG0oHty3ncM-xjk0IjsAGhw_Mtueo8R2pawNrRmRNSCm1v4_jKXChbk/exec';
+  const DIVA_API = 'https://script.google.com/macros/s/AKfycbzzikyFMBulkQeBbc7X7h2ijV24l3hZamo1noZfUhUm98mBTiSS5je7cdD4xTFlAXCp/exec';
 
   const nome  = localStorage.getItem('diva_nome')  || localStorage.getItem('diva_nome_curso')  || '';
   const email = localStorage.getItem('diva_email') || localStorage.getItem('diva_email_curso') || '';
@@ -46,7 +46,7 @@
     document.getElementById('btn-entrar').style.display = 'inline-block';
   }
 
-  if (!email || DIVA_API === 'https://script.google.com/macros/s/AKfycbyGkvrNkBZFAlG0oHty3ncM-xjk0IjsAGhw_Mtueo8R2pawNrRmRNSCm1v4_jKXChbk/exec') {
+  if (!email || DIVA_API === 'https://script.google.com/macros/s/AKfycbzzikyFMBulkQeBbc7X7h2ijV24l3hZamo1noZfUhUm98mBTiSS5je7cdD4xTFlAXCp/exec') {
     mostrarBotao('Clique abaixo para acessar o curso.');
   } else {
     fetch(DIVA_API + '?action=register&email=' + encodeURIComponent(email) +
