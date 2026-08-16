@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /area-membros-rg.html
+Disallow: /membros.html
+Disallow: /sucesso-rg.html
+
+Sitemap: https://divarebelon-droid.github.io/reuniao-garantida/sitemap.xml
