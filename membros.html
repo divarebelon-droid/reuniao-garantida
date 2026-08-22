@@ -208,6 +208,11 @@
     .modal-body { padding:28px; }
     .video-wrap { position:relative; padding-bottom:56.25%; height:0; border-radius:12px; overflow:hidden; margin-bottom:22px; box-shadow:0 20px 60px rgba(0,0,0,0.7); }
     .video-wrap iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
+    .yt-shield { position:absolute; z-index:10; pointer-events:all; cursor:default; background:transparent; }
+    .yt-shield-top { top:0; left:0; right:0; height:58px; }
+    .yt-shield-br  { bottom:0; right:0; width:225px; height:50px; }
+    .yt-toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(90px); background:#1a1a1a; color:#c9a96e; border:1px solid rgba(201,169,110,0.4); border-radius:10px; padding:12px 24px; font-size:14px; font-weight:600; z-index:9999; transition:transform .35s cubic-bezier(.22,1,.36,1),opacity .35s; opacity:0; pointer-events:none; white-space:nowrap; box-shadow:0 8px 30px rgba(0,0,0,0.5); }
+    .yt-toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
     .modal-desc { font-size:14px; color:var(--gravel); line-height:1.8; }
 
     /* ══ UPGRADE MODAL ══ */
@@ -516,7 +521,11 @@
       </button>
     </div>
     <div class="modal-body">
-      <div class="video-wrap"><iframe id="modal-video" src="" title="Aula" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="video-wrap">
+        <iframe id="modal-video" src="" title="Aula" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="yt-shield yt-shield-top" onclick="ytToast()"></div>
+        <div class="yt-shield yt-shield-br"  onclick="ytToast()"></div>
+      </div>
       <p class="modal-desc" id="modal-desc"></p>
     </div>
   </div>
@@ -577,6 +586,8 @@
   document.getElementById('welcome-name').textContent = firstName;
   document.getElementById('sb-uname').textContent     = nome || 'Membro';
   document.getElementById('sb-email-el').textContent  = email;
+  let _ytT; function ytToast(){ const t=document.getElementById('yt-toast'); if(!t) return; clearTimeout(_ytT); t.classList.add('show'); _ytT=setTimeout(()=>t.classList.remove('show'),2800); }
+
   document.getElementById('sb-avatar').textContent    = nome.charAt(0).toUpperCase() || '?';
 
   // Track access
@@ -585,25 +596,25 @@
   // ── LESSONS DATA ──
   const lessons = {
     aula1: { eyebrow:'Gratuito · Aula 01', title:'Como vai funcionar?',
-              video:'https://www.youtube.com/embed/xLLpaBo_MiY?rel=0&autoplay=1',
+              video:'https://www.youtube-nocookie.com/embed/xLLpaBo_MiY?rel=0&autoplay=1&iv_load_policy=3',
               desc:'Entenda a estrutura completa do Método Reunião Garantida e o que você vai aprender ao longo das aulas deste módulo gratuito.' },
     aula2: { eyebrow:'Gratuito · Aula 02', title:'O que vendemos?',
-              video:'https://www.youtube.com/embed/ExRWMk0_H88?rel=0&autoplay=1',
+              video:'https://www.youtube-nocookie.com/embed/ExRWMk0_H88?rel=0&autoplay=1&iv_load_policy=3',
               desc:'Clareza total sobre o produto, a oferta e como posicionar o que você vende para o mercado B2B de forma que o lead entenda o valor imediatamente.' },
     aula3: { eyebrow:'Gratuito · Aula 03', title:'Como criar uma oferta que o lead pede pra comprar?',
-              video:'https://www.youtube.com/embed/TyrFkSu4vKI?rel=0&autoplay=1',
+              video:'https://www.youtube-nocookie.com/embed/TyrFkSu4vKI?rel=0&autoplay=1&iv_load_policy=3',
               desc:'A estrutura de oferta que desperta desejo genuíno no lead e faz com que ele tome a iniciativa de pedir para comprar — sem pressão, sem objeções.' },
     aula4: { eyebrow:'Gratuito · Aula 04', title:'Estratégia de Prospecção',
-              video:'https://www.youtube.com/embed/GdJJVKYKLSY?rel=0&autoplay=1',
+              video:'https://www.youtube-nocookie.com/embed/GdJJVKYKLSY?rel=0&autoplay=1&iv_load_policy=3',
               desc:'A estratégia completa para prospectar com inteligência e gerar respostas reais no mercado B2B.' },
     aula5: { eyebrow:'Gratuito · Bônus', title:'Treinamento com BDR',
-              video:'https://www.youtube.com/embed/KdPQY8ZwlSg?rel=0&autoplay=1',
+              video:'https://www.youtube-nocookie.com/embed/KdPQY8ZwlSg?rel=0&autoplay=1&iv_load_policy=3',
               desc:'Treinamento realizado com um BDR (Business Development Representative — a pessoa responsável pela prospecção ativa) antes de ele iniciar na função. Veja os pontos essenciais ensinados na prática.' },
     aula6: { eyebrow:'Gratuito · Bônus', title:'Treinamento com mentoradas',
-              video:'https://www.youtube.com/embed/3gG1sinC9os?rel=0&autoplay=1',
+              video:'https://www.youtube-nocookie.com/embed/3gG1sinC9os?rel=0&autoplay=1&iv_load_policy=3',
               desc:'Sessão ao vivo onde mentoradas aprenderam a prospectar — pontos práticos e estratégicos direto da mentoria, aplicáveis imediatamente.' },
     aula7: { eyebrow:'Gratuito · Bônus Final', title:'Aulão de Prospecção',
-              video:'https://www.youtube.com/embed/BUlYKc2cgwQ?rel=0&autoplay=1',
+              video:'https://www.youtube-nocookie.com/embed/BUlYKc2cgwQ?rel=0&autoplay=1&iv_load_policy=3',
               desc:'Treinamento intensivo com tudo que você precisa saber sobre prospecção B2B: abordagens, scripts, canais e estratégias que realmente geram respostas. Depois desse, você vai querer o próximo nível.' }
   };
 
@@ -766,5 +777,6 @@
     r.animate([{ transform:'translate(-50%,-50%) scale(0)', opacity:.8 }, { transform:'translate(-50%,-50%) scale(16)', opacity:0 }], { duration:600, easing:'ease-out' }).onfinish = () => r.remove();
   });
 </script>
+<div id="yt-toast" class="yt-toast">🔒 Conteúdo protegido — compartilhamento desativado</div>
 </body>
 </html>
