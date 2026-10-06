@@ -25,37 +25,14 @@
   <div class="icon">🎉</div>
   <h1>Pagamento confirmado!</h1>
   <p>Bem-vinda ao Método Reunião Garantida.</p>
-  <p>Seu acesso está sendo liberado...</p>
-  <div class="spinner" id="status">Aguarde um instante...</div>
-  <button class="btn" id="btn-entrar" style="display:none" onclick="entrar()">Acessar o curso →</button>
+  <p>Seu acesso será liberado automaticamente após a confirmação.</p>
+  <div class="spinner" id="status">Você também receberá o link de acesso por e-mail.</div>
+  <button class="btn" id="btn-entrar" onclick="entrar()">Ir para o login seguro →</button>
 </div>
 
 <script>
-  const DIVA_API = 'https://script.google.com/macros/s/AKfycbzzikyFMBulkQeBbc7X7h2ijV24l3hZamo1noZfUhUm98mBTiSS5je7cdD4xTFlAXCp/exec';
-
-  const nome  = localStorage.getItem('diva_nome')  || localStorage.getItem('diva_nome_curso')  || '';
-  const email = localStorage.getItem('diva_email') || localStorage.getItem('diva_email_curso') || '';
-
   function entrar() {
-    localStorage.setItem('diva_email_curso', email);
-    localStorage.setItem('diva_nome_curso', nome);
-    window.location.href = 'area-membros-rg.html';
-  }
-
-  function mostrarBotao(msg) {
-    document.getElementById('status').textContent = msg;
-    document.getElementById('btn-entrar').style.display = 'inline-block';
-  }
-
-  if (!email || DIVA_API === 'https://script.google.com/macros/s/AKfycbzzikyFMBulkQeBbc7X7h2ijV24l3hZamo1noZfUhUm98mBTiSS5je7cdD4xTFlAXCp/exec') {
-    mostrarBotao('Clique abaixo para acessar o curso.');
-  } else {
-    fetch(DIVA_API + '?action=register&email=' + encodeURIComponent(email) +
-                     '&nome='  + encodeURIComponent(nome) +
-                     '&valor=47.90')
-      .then(r => r.json())
-      .then(() => mostrarBotao('Acesso liberado! Clique abaixo.'))
-      .catch(()  => mostrarBotao('Clique abaixo para acessar o curso.'));
+    window.location.href = 'cursos.html';
   }
 </script>
 </body>

@@ -538,11 +538,12 @@
   // ══ AUTH ══
   let _ytT; function ytToast(){ const t=document.getElementById('yt-toast'); if(!t) return; clearTimeout(_ytT); t.classList.add('show'); _ytT=setTimeout(()=>t.classList.remove('show'),2800); }
 
-  const ADMIN_EMAILS = ['divarebel.on@gmail.com'];
-  const DIVA_API = 'https://script.google.com/macros/s/AKfycbzzikyFMBulkQeBbc7X7h2ijV24l3hZamo1noZfUhUm98mBTiSS5je7cdD4xTFlAXCp/exec'; // substitua após deploy do Apps Script
+  const DIVA_API = 'https://script.google.com/macros/s/AKfycbzzikyFMBulkQeBbc7X7h2ijV24l3hZamo1noZfUhUm98mBTiSS5je7cdD4xTFlAXCp/exec';
   const nome  = localStorage.getItem('diva_nome_curso') || localStorage.getItem('diva_nome') || '';
   const email = localStorage.getItem('diva_email_curso') || localStorage.getItem('diva_email') || '';
-  if (!email) { window.location.href = 'cursos.html'; }
+  const sessionToken = localStorage.getItem('rg_session_token') || '';
+  const deviceId = localStorage.getItem('rg_device_id') || '';
+  if (!sessionToken || !deviceId) { window.location.replace('cursos.html'); }
 
   // Aulas liberadas apenas após 7 dias do pagamento
   const DRIP_LESSONS = new Set(['crm1','crm2','crm3','crm4','crm5','p3a1','p3a2','p3a3','mat1','mat2','mat3']);
@@ -580,16 +581,14 @@
   }
 
   function checkAccess() {
-    if (ADMIN_EMAILS.includes(email)) return; // admin tem acesso total
-    if (DIVA_API === 'https://script.google.com/macros/s/AKfycbzzikyFMBulkQeBbc7X7h2ijV24l3hZamo1noZfUhUm98mBTiSS5je7cdD4xTFlAXCp/exec') return; // API não configurada ainda
-    fetch(DIVA_API + '?action=check&email=' + encodeURIComponent(email))
+    fetch(DIVA_API + '?action=verify_session&token=' + encodeURIComponent(sessionToken) + '&device=' + encodeURIComponent(deviceId))
       .then(r => r.json())
       .then(d => {
-        if (!d.paid) { window.location.href = 'membros.html'; return; }
+        if (!d.ok) { logout(); return; }
         applyDrip(d.paymentDate);
-        fetch(DIVA_API + '?action=access&email=' + encodeURIComponent(email), {mode:'no-cors'}).catch(()=>{});
+        fetch(DIVA_API + '?action=access&token=' + encodeURIComponent(sessionToken) + '&device=' + encodeURIComponent(deviceId)).catch(()=>{});
       })
-      .catch(() => {}); // fail-open: se a API falhar, não bloqueia
+      .catch(() => logout());
   }
   checkAccess();
 
@@ -689,7 +688,7 @@
     document.body.style.overflow = '';
   }
 
-  function logout() { localStorage.removeItem('diva_nome_curso'); localStorage.removeItem('diva_email_curso'); window.location.href = 'cursos.html'; }
+  function logout() { localStorage.removeItem('rg_session_token'); localStorage.removeItem('diva_nome_curso'); localStorage.removeItem('diva_email_curso'); window.location.replace('cursos.html'); }
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLesson({target: document.getElementById('modal-overlay')}); });
 
