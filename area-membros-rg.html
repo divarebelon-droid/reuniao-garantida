@@ -93,6 +93,7 @@
     .sb-avatar { width:32px; height:32px; border-radius:50%; background:rgba(201,169,110,0.15); border:1px solid rgba(201,169,110,0.3); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:var(--gold); flex-shrink:0; }
     .sb-username { font-size:13px; font-weight:600; color:var(--limestone); }
     .sb-email { font-size:11px; color:var(--gravel); }
+    .access-days { margin-top:6px; font-size:11px; line-height:1.35; color:var(--gold); font-weight:700; }
     .sb-exit { display:flex; align-items:center; gap:8px; font-size:12px; color:var(--gravel); background:none; border:none; cursor:pointer; transition:color 0.2s; }
     .sb-exit:hover { color:var(--limestone); }
 
@@ -369,6 +370,7 @@
       <div>
         <div class="sb-username" id="sb-username">—</div>
         <div class="sb-email" id="sb-email">—</div>
+        <div class="access-days" id="access-days">Calculando seu período de acesso…</div>
       </div>
     </div>
     <button class="sb-exit" onclick="logout()">
@@ -580,11 +582,31 @@
     });
   }
 
+  function applyAccessPeriod(paymentDate) {
+    const pay = parseDateBR(paymentDate);
+    if (!pay || isNaN(pay)) {
+      document.getElementById('access-days').textContent = 'Período de acesso em validação';
+      return true;
+    }
+    const expires = new Date(pay.getFullYear(), pay.getMonth() + 6, pay.getDate(), 23, 59, 59, 999);
+    const daysLeft = Math.max(0, Math.ceil((expires.getTime() - Date.now()) / 86400000));
+    const label = document.getElementById('access-days');
+    if (daysLeft <= 0) {
+      label.textContent = 'Seu período de 6 meses terminou';
+      localStorage.removeItem('rg_session_token');
+      setTimeout(() => window.location.replace('cursos.html?acesso=expirado'), 900);
+      return false;
+    }
+    label.textContent = `${daysLeft} dia${daysLeft !== 1 ? 's' : ''} de acesso restante${daysLeft !== 1 ? 's' : ''}`;
+    return true;
+  }
+
   function checkAccess() {
     fetch(DIVA_API + '?action=verify_session&token=' + encodeURIComponent(sessionToken) + '&device=' + encodeURIComponent(deviceId))
       .then(r => r.json())
       .then(d => {
         if (!d.ok) { logout(); return; }
+        if (!applyAccessPeriod(d.paymentDate)) return;
         applyDrip(d.paymentDate);
         fetch(DIVA_API + '?action=access&token=' + encodeURIComponent(sessionToken) + '&device=' + encodeURIComponent(deviceId)).catch(()=>{});
       })
