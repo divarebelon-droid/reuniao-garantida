@@ -27,9 +27,8 @@
 <div class="card">
   <div class="icon">🎉</div>
   <h1>Pagamento confirmado!</h1>
-  <p>Bem-vinda ao Método Reunião Garantida.</p>
-  <p>Seu acesso será liberado automaticamente após a confirmação.</p>
-  <div class="spinner" id="status">Você também receberá o link de acesso por e-mail.</div>
+  <p>Seu acesso ao Reunião Garantida já foi liberado e enviado para o mesmo e-mail que você cadastrou.</p>
+  <div class="spinner" id="status"></div>
   <button class="btn" id="btn-entrar" onclick="entrar()">Ir para o login seguro →</button>
 </div>
 
@@ -37,10 +36,17 @@
   let attribution = {};
   try { attribution = JSON.parse(localStorage.getItem('rg_attribution') || '{}'); } catch (_) {}
   const creative = attribution.criativo || 'nao_identificado';
-  if (!sessionStorage.getItem('rg_purchase_tracked')) {
-    sessionStorage.setItem('rg_purchase_tracked', '1');
-    if (window.fbq) fbq('track', 'Purchase', { value: 47.90, currency: 'BRL', content_name: 'Reunião Garantida', criativo: creative, utm_content: attribution.utm_content || creative });
-    if (window.gtag) gtag('event', 'purchase', { transaction_id: 'rg-' + Date.now(), currency: 'BRL', value: 47.90, creative_name: creative, utm_content: attribution.utm_content || creative, items: [{ item_name: 'Reunião Garantida', price: 47.90, quantity: 1 }] });
+  const callbackReturn = new URLSearchParams(location.search).get('return') === 'asaas';
+  let attempt = {};
+  try { attempt = JSON.parse(localStorage.getItem('rg_pending_purchase') || '{}'); } catch (_) {}
+  const attemptIsRecent = Number.isFinite(attempt.createdAt) && Date.now() - attempt.createdAt < 86400000;
+  const purchaseKey = attempt.id ? 'rg_purchase_tracked_' + attempt.id : '';
+  if (callbackReturn && attempt.id && attemptIsRecent && !localStorage.getItem(purchaseKey)) {
+    localStorage.setItem(purchaseKey, '1');
+    const eventData = { value: 47.90, currency: 'BRL', content_name: 'Reunião Garantida', criativo: creative, utm_content: attribution.utm_content || creative };
+    if (window.fbq) fbq('track', 'Purchase', eventData, { eventID: attempt.id });
+    if (window.gtag) gtag('event', 'purchase', { transaction_id: attempt.id, currency: 'BRL', value: 47.90, creative_name: creative, utm_content: attribution.utm_content || creative, items: [{ item_name: 'Reunião Garantida', price: 47.90, quantity: 1 }] });
+    localStorage.removeItem('rg_pending_purchase');
   }
   function entrar() {
     window.location.href = 'cursos.html';
