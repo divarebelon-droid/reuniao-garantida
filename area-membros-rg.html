@@ -615,7 +615,7 @@
         if (!d.ok) { logout(); return; }
         if (!applyAccessPeriod(d.paymentDate)) return;
         applyDrip(d.paymentDate);
-        fetch(DIVA_API + '?action=access&token=' + encodeURIComponent(sessionToken) + '&device=' + encodeURIComponent(deviceId)).catch(()=>{});
+        // A confirmação de sessão já registra este acesso no backend, na mesma chamada.
       })
       .catch(() => logout());
   }
