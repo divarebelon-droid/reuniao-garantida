@@ -332,6 +332,17 @@
       <span class="sb-num">★</span> Bônus Especial
     </button>
 
+    <div class="sb-section" style="margin-top:8px;">📎 Materiais bônus · liberados após 7 dias</div>
+    <button class="sb-item" onclick="selectLesson('bmat1',this);openLesson('bmat1')">
+      <span class="sb-num">↓</span> Por que ignoram suas mensagens?
+    </button>
+    <button class="sb-item" onclick="selectLesson('bmat2',this);openLesson('bmat2')">
+      <span class="sb-num">↓</span> Material da aula Reunião Garantida
+    </button>
+    <button class="sb-item" onclick="selectLesson('bmat3',this);openLesson('bmat3')">
+      <span class="sb-num">↓</span> Do WhatsApp à reunião
+    </button>
+
     <div class="sb-section" style="margin-top:8px;">CRM</div>
     <button class="sb-item" onclick="selectLesson('crm1',this)">
       <span class="sb-num">1</span> Lista de prospecção — Pt. 1
@@ -555,7 +566,7 @@
   if (!sessionToken || !deviceId) { window.location.replace('cursos.html'); }
 
   // Aulas liberadas apenas após 7 dias do pagamento
-  const DRIP_LESSONS = new Set(['crm1','crm2','crm3','crm4','crm5','p3a1','p3a2','p3a3','mat1','mat2','mat3']);
+  const DRIP_LESSONS = new Set(['crm1','crm2','crm3','crm4','crm5','p3a1','p3a2','p3a3','mat1','mat2','mat3','bmat1','bmat2','bmat3']);
   let lockedLessons  = new Set(); // preenchido pelo checkAccess
 
   function parseDateBR(str) {
@@ -666,6 +677,9 @@
     mat1: { num:'Materiais', title:'Planilha de Prospecção', type:'link', url:'https://divarebelon-droid.github.io/reuniao-garantida/PROSPECT-F2.xlsx', desc:'Clique para baixar a planilha de prospecção.' },
     mat2: { num:'Materiais', title:'CRM no ClickUp',          type:'link', url:'https://app.clickup.com/template/subcategory/t-901326451642/4216da99eb2184a9c0', desc:'Clique para acessar o modelo de CRM no ClickUp.' },
     mat3: { num:'Materiais', title:'Planilha de Controle de Prospecção', type:'link', url:'https://divarebelon-droid.github.io/reuniao-garantida/Acompanhamento%20de%20Prospec%C3%A7%C3%A3o.xlsx', desc:'Clique para baixar a planilha de controle de prospecção.' },
+    bmat1: { num:'Bônus · Material 01', title:'Por que as empresas ignoram suas mensagens?', type:'material', url:'https://docs.google.com/document/d/1qsw4GYR2LHLTE4nFZJtJvdyVIp_6wByX_TxRoX1u0TU/export?format=pdf', desc:'Material complementar da aula. Baixe o arquivo pelo botão abaixo.<br><br><a class="btn-gold" href="https://docs.google.com/document/d/1qsw4GYR2LHLTE4nFZJtJvdyVIp_6wByX_TxRoX1u0TU/export?format=pdf" target="_blank" rel="noopener">Baixar material</a>' },
+    bmat2: { num:'Bônus · Material 02', title:'Material complementar — Reunião Garantida', type:'material', url:'https://docs.google.com/document/d/1dXFZNprXtEa9GzU6nBBj7jWgRUJ89E7YQNrU2a59jl4/export?format=pdf', desc:'Material complementar da aula. Baixe o arquivo pelo botão abaixo.<br><br><a class="btn-gold" href="https://docs.google.com/document/d/1dXFZNprXtEa9GzU6nBBj7jWgRUJ89E7YQNrU2a59jl4/export?format=pdf" target="_blank" rel="noopener">Baixar material</a>' },
+    bmat3: { num:'Bônus · Material 03', title:'Do WhatsApp à reunião', type:'material', url:'https://docs.google.com/document/d/1AOFHKPtJgEc44kwjcsvtRqXdrJ4DnQUbWLoXnItfXuE/export?format=pdf', desc:'Material complementar da aula. Baixe o arquivo pelo botão abaixo.<br><br><a class="btn-gold" href="https://docs.google.com/document/d/1AOFHKPtJgEc44kwjcsvtRqXdrJ4DnQUbWLoXnItfXuE/export?format=pdf" target="_blank" rel="noopener">Baixar material</a>' },
     p3a1: { num:'IA para Prospecção · Aula 01', title:'Usando a IA',                                         video:'https://www.youtube-nocookie.com/embed/P_suCjXF7Yc?rel=0&autoplay=1&iv_load_policy=3&cc_load_policy=0', desc:'Aprenda a usar inteligência artificial para automatizar pesquisa, personalizar abordagens e prospectar com muito mais velocidade.' },
     p3a3: { num:'Aula Final', title:'Marquei reunião, e agora?', video:'https://www.youtube-nocookie.com/embed/JCBZooFhGvk?rel=0&autoplay=1&iv_load_policy=3&cc_load_policy=0', desc:'Você marcou a reunião — agora aprenda o que fazer para garantir a presença do lead e conduzir com resultado.' },
     p3a2: { num:'IA para Prospecção · Aula 02', title:'Perguntas para responder para a IA', video:'', textOnly:true, desc:'Responda estas perguntas ao usar a IA para criar o planejamento do seu cliente:<br><br><strong>1.</strong> Qual o objetivo principal que você deseja alcançar com esse planejamento?<br><br><strong>2.</strong> Quais as principais áreas ou serviços que são oferecidos pela empresa do seu cliente?<br><br><strong>3.</strong> A empresa do seu cliente oferece serviços ou produtos que são complementares ao produto principal?<br><br><strong>4.</strong> Qual é o perfil do cliente ideal do seu cliente?<br><br><strong>5.</strong> Qual é o perfil do seu cliente — ele é uma pequena empresa de até 50 funcionários, ou uma média empresa, e assim por diante?<br><br><strong>6.</strong> No caso você vendeu pra ele apenas o planejamento, ou você tem um contrato de recorrência com ele?<br><br><strong>7.</strong> Como a empresa do seu cliente especifica o serviço — por hora, por produto, um pacote fechado ou uma mensalidade?<br><br><strong>8.</strong> Qual é o canal principal para aquisição de novos clientes da empresa dele?<br><br><strong>9.</strong> Qual é o principal diferencial da empresa dele em relação aos concorrentes?<br><br><strong>10.</strong> Qual o nível de maturidade do seu cliente referente a marketing?<br><br><strong>11.</strong> Qual o nível de maturidade do seu cliente em relação a processo comercial?' }
